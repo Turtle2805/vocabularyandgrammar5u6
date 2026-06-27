@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài Kiểm Tra Tiếng Anh Thần Tốc - Ms Lê Hằng English</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8854C0;
+            --secondary: #FDCB6E;
+            --accent: #00C9A7;
+            --correct: #00D26A;
+            --wrong: #FF4757;
+            --bg-light: #ffffff;
+            --text-color: #2D3436;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Quicksand', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px 10px;
+            min-height: 100vh;
+            background: linear-gradient(-45deg, #8854C0, #FDCB6E, #00C9A7, #FF8A80, #A29BFE);
+            background-size: 400% 400%;
+            animation: gamifiedGradient 14s ease infinite;
+            position: relative;
+            overflow-x: hidden;
+            color: var(--text-color);
+        }
+
+        @keyframes gamifiedGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* SVG Floating Pattern Background Overlay - Stars, clouds, flowers */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill='%23ffffff' fill-opacity='0.18'%3E%3Cpath d='M20 20l2 5h5l-4 3l1 5l-4-3l-4 3l1-5l-4-3h5z'/%3E%3Ccircle cx='70' cy='30' r='6'/%3E%3Cpath d='M40 70c0-4 3-7 7-7s7 3 7 7-3 7-7 7-7-3-7-7z'/%3E%3Cpath d='M80 80l3 3l3-3l1 1l-3 3l3 3l-1 1l-3-3l-3 3l-1-1l3-3l-3-3z'/%3E%3C/g%3E%3C/svg%3E");
+            animation: patternsFloatMove 25s linear infinite;
+        }
+
+        @keyframes patternsFloatMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 100px 200px; }
+        }
+
+        .main-wrapper {
+            position: relative;
+            z-index: 1;
+            max-width: 780px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.92);
+            padding: 10px 15px;
+            border-radius: 18px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            text-align: center;
+            margin-bottom: 20px;
+            border: 3px solid var(--primary);
+        }
+
+        header h2 {
+            margin: 0;
+            font-size: 1.15rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .alert-reminder-box {
+            background: #FFF9E6;
+            border: 3px solid var(--secondary);
+            border-radius: 20px;
+            padding: 16px 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 0 var(--secondary);
+            text-align: center;
+        }
+
+        .alert-title {
+            color: #D63031;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .alert-text {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #2D3436;
+            font-weight: 700;
+        }
+
+        .exercise-title-banner {
+            background: var(--accent);
+            color: white;
+            padding: 8px 18px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            margin: 30px 0 15px 0;
+            display: inline-block;
+            box-shadow: 0 4px 0 #00A854;
+        }
+
+        .quiz-card-item {
+            background: var(--bg-light);
+            border-radius: 22px;
+            padding: 22px;
+            margin-bottom: 22px;
+            box-shadow: 0 8px 0 rgba(0, 0, 0, 0.08), 0 12px 24px rgba(0, 0, 0, 0.05);
+            border: 3px solid #E2E8F0;
+            transition: transform 0.2s ease;
+            position: relative;
+        }
+
+        .question-text-row {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #2D3436;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+            line-height: 1.4;
+        }
+
+        .badge-q-number {
+            background: var(--primary);
+            color: white;
+            padding: 2px 10px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            margin-right: 10px;
+            flex-shrink: 0;
+            box-shadow: 0 3px 0 #673AB7;
+        }
+
+        .options-vertical-stack {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .option-gamified-btn {
+            background: #FFFFFF;
+            border: 3px solid #E2E8F0;
+            border-radius: 16px;
+            padding: 13px 18px;
+            font-size: 1rem;
+            font-weight: 700;
+            text-align: left;
+            cursor: pointer;
+            box-shadow: 0 5px 0 #E2E8F0;
+            transition: all 0.1s ease;
+            display: flex;
+            align-items: center;
+            color: var(--text-color);
+            width: 100%;
+        }
+
+        .option-gamified-btn:hover:not(.disabled-state) {
+            transform: scale(1.015);
+            background-color: #FAFAFA;
+            border-color: #CBD5E1;
+            box-shadow: 0 5px 0 #CBD5E1;
+        }
+
+        .option-gamified-btn:active:not(.disabled-state) {
+            transform: translateY(3px);
+            box-shadow: 0 2px 0 #CBD5E1;
+        }
+
+        .alpha-prefix-box {
+            background: #F1F5F9;
+            border-radius: 8px;
+            width: 26px;
+            height: 26px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-size: 0.85rem;
+            color: #64748B;
+            border: 2px solid #E2E8F0;
+            flex-shrink: 0;
+        }
+
+        /* Interactive Choice Feedback States */
+        .option-gamified-btn.correct-state {
+            background-color: #E8F8F0 !important;
+            border-color: var(--correct) !important;
+            box-shadow: 0 5px 0 #00A854 !important;
+            color: #006633 !important;
+        }
+        .option-gamified-btn.correct-state .alpha-prefix-box {
+            background-color: var(--correct) !important;
+            color: white !important;
+            border-color: #00A854 !important;
+        }
+
+        .option-gamified-btn.wrong-state {
+            background-color: #FFEBEB !important;
+            border-color: var(--wrong) !important;
+            box-shadow: 0 5px 0 #D63031 !important;
+            color: #990000 !important;
+        }
+        .option-gamified-btn.wrong-state .alpha-prefix-box {
+            background-color: var(--wrong) !important;
+            color: white !important;
+            border-color: #D63031 !important;
+        }
+
+        .card-shake-animation {
+            animation: cardShake 0.4s ease;
+        }
+
+        @keyframes cardShake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-6px); }
+            40%, 80% { transform: translateX(6px); }
+        }
+
+        /* Super Detailed Explanation Box Panels */
+        .explanation-reveal-panel {
+            display: none;
+            margin-top: 18px;
+            background: #F8FAFC;
+            border-left: 6px solid var(--primary);
+            border-radius: 12px;
+            padding: 16px 20px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+            animation: fadeInUpReveal 0.35s ease forwards;
+        }
+
+        @keyframes fadeInUpReveal {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .exp-section-title {
+            font-weight: 700;
+            color: #1E293B;
+            margin-top: 10px;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            font-size: 0.95rem;
+        }
+
+        .exp-section-title::before {
+            content: "✨";
+            margin-right: 6px;
+            font-size: 0.9rem;
+            color: var(--primary);
+        }
+
+        .exp-list {
+            margin: 0;
+            padding-left: 20px;
+            color: #475569;
+        }
+
+        .exp-list li {
+            margin-bottom: 4px;
+        }
+
+        /* Fixed Submission Button UI */
+        .footer-action-area {
+            margin: 45px 0 60px 0;
+            text-align: center;
+        }
+
+        .submit-all-btn {
+            background: #FF7675;
+            color: white;
+            border: none;
+            border-radius: 24px;
+            padding: 18px 50px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 8px 0 #D63031;
+            transition: all 0.1s ease;
+        }
+
+        .submit-all-btn:hover {
+            transform: scale(1.04);
+            background: #FF6B6B;
+        }
+
+        .submit-all-btn:active {
+            transform: translateY(6px);
+            box-shadow: 0 2px 0 #D63031;
+        }
+
+        /* Overlay Popup Windows */
+        .popup-modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.65);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.3s ease;
+            padding: 20px;
+        }
+
+        .popup-modal-overlay.active-popup {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .popup-body-card {
+            background: white;
+            border-radius: 26px;
+            padding: 30px;
+            max-width: 480px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+            border: 4px solid var(--primary);
+            transform: scale(0.85);
+            transition: transform 0.3s ease;
+        }
+
+        .popup-modal-overlay.active-popup .popup-body-card {
+            transform: scale(1);
+        }
+
+        .popup-main-header {
+            font-size: 1.5rem;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .large-score-digit {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--correct);
+            margin: 15px 0;
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.05);
+        }
+
+        .teacher-speech-cloud {
+            background: #F8FAFC;
+            padding: 16px;
+            border-radius: 18px;
+            font-style: italic;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #334155;
+            margin-bottom: 22px;
+            border-left: 5px solid var(--secondary);
+            text-align: left;
+        }
+
+        .dismiss-modal-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 0 #673AB7;
+            font-size: 1.05rem;
+        }
+
+        .dismiss-modal-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #673AB7;
+        }
+
+        #confetti-layer {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 99;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="confetti-layer"></canvas>
+
+    <div class="main-wrapper">
+        <header>
+            <h2>Giáo viên tạo: Ms Lê Hằng English</h2>
+        </header>
+
+        <div class="alert-reminder-box">
+            <div class="alert-title">⚠️ LỜI NHẮC CỰC KỲ QUAN TRỌNG ⚠️</div>
+            <div class="alert-text">
+                Chỉ có đọc kỹ giải thích ngay sau mỗi câu, sau đó ghi lại từ vựng/cấu trúc mới vào vở để học thì mới thực sự giỏi lên.<br>
+                Làm cho xong mà không đọc giải thích hay đọc qua loa không ghi chép thì chỉ tốn thời gian vô ích!<br>
+                <span style="color:#8854C0;">* Kéo tới đâu, làm tới đó! *</span>
+            </div>
+        </div>
+
+        <!-- Render Target Container for Javascript Injection -->
+        <div id="dynamic-quiz-root"></div>
+
+        <div class="footer-action-area">
+            <button class="submit-all-btn" onclick="evaluateAndSumUpScore()">Nộp Bài Xem Điểm 🎉</button>
+        </div>
+    </div>
+
+    <!-- Final Score Summary Modal Window -->
+    <div class="popup-modal-overlay" id="score-summary-modal">
+        <div class="popup-body-card">
+            <div style="font-size:3.5rem; margin-bottom:5px;">👩‍🏫</div>
+            <div class="popup-main-header">Kết Quả Bài Kiểm Tra</div>
+            <div class="large-score-digit" id="final-score-placeholder">0/92</div>
+            <div class="teacher-speech-cloud" id="teacher-dynamic-comment">...</div>
+            <button class="dismiss-modal-btn" onclick="hideSummaryModal()">Xem Lại Đáp Án / Học Tiếp</button>
+        </div>
+    </div>
+
+    <script>
+        // Raw Data Injection from Backend Python Compiler
+        const questionDatabase = [{"id": "ex3_1", "exercise": "Exercise 3", "question": "1. It’s rain in Hue, so remember ______ bring an umbrella!", "options": ["from", "with", "to", "of"], "correct": "to", "explanation": "\n        1. Dịch câu hỏi: \"Trời đang mưa ở Huế, vì vậy hãy nhớ mang theo ô!\"\n        2. Phân tích 4 đáp án:\n        - A. from (preposition - giới từ): từ đâu đó.\n        - B. with (preposition - giới từ): với, cùng với.\n        - C. to (preposition - giới từ / từ định hướng): để làm gì.\n        - D. of (preposition - giới từ): của ai/cái gì.\n        3. Tại sao chọn C? Cấu trúc \"remember + to + V-infinitive\" nghĩa là \"nhớ phải làm một việc gì đó (bổn phận, trách nhiệm hành động tương lai)\". Do đó, \"remember to bring\" có nghĩa là nhớ mang theo ô.\n        4. Tại sao các đáp án khác sai? A, B, D đều là các giới từ không thể đi trực tiếp với một động từ nguyên thể như \"bring\" để tạo thành cấu trúc mệnh lệnh hay nhắc nhở bổn phận trong tiếng Anh.\n        "}, {"id": "ex3_2", "exercise": "Exercise 3", "question": "2. The ______ is a peaceful place. People catch fish for a living.", "options": ["camping site", "fishing village", "forest", "desert"], "correct": "fishing village", "explanation": "\n        1. Dịch câu hỏi: \"[...] là một nơi yên bình. Người dân đánh bắt cá để kiếm sống.\"\n        2. Phân tích 4 đáp án:\n        - A. camping site (noun - danh từ): địa điểm cắm trại.\n        - B. fishing village (noun - danh từ): làng chài, làng đánh cá.\n        - C. forest (noun - danh từ): khu rừng.\n        - D. desert (noun - danh từ): sa mạc.\n        3. Tại sao chọn B? Dựa vào mệnh đề ngữ cảnh ở phía sau: \"People catch fish for a living\" (Người dân đánh bắt cá để kiếm sống) -> Nghề nghiệp đánh cá gắn liền với môi trường \"làng chài\".\n        4. Tại sao các đáp án khác sai? Các đáp án A (địa điểm cắm trại), C (khu rừng), D (sa mạc) không phải là nơi mà người dân làm nghề đánh cá để mưu sinh phổ biến và phù hợp logic thực tế.\n        "}, {"id": "ex3_3", "exercise": "Exercise 3", "question": "3. Bring some ______ in case you have a headache or so.", "options": ["backpack", "compass", "map", "painkillers."], "correct": "painkillers.", "explanation": "\n        1. Dịch câu hỏi: \"Hãy mang theo một ít [...] phòng trường hợp con bị đau đầu hoặc tương tự.\"\n        2. Phân tích 4 đáp án:\n        - A. backpack (noun - danh từ): ba lô hành lý.\n        - B. compass (noun - danh từ): la bàn.\n        - C. map (noun - danh từ): bản đồ.\n        - D. painkillers (noun - danh từ): thuốc giảm đau.\n        3. Tại sao chọn D? Manh mối ngữ cảnh nằm ở cụm từ \"have a headache\" (bị đau đầu). Khi bị đau đầu, chúng ta cần dùng thuốc giảm đau (\"painkillers\").\n        4. Tại sao các đáp án khác sai? Các phương án A (ba lô), B (la bàn), C (bản đồ) đều là dụng cụ du lịch dã ngoại, không thể dùng để chữa chứng đau đầu hay các vấn đề y tế cơ thể.\n        "}, {"id": "ex3_4", "exercise": "Exercise 3", "question": "4. Let’s go to the park and ______ on a sunny day.", "options": ["hurry up", "fly kites", "visit the rock", "bring clothes"], "correct": "fly kites", "explanation": "\n        1. Dịch câu hỏi: \"Chúng ta hãy cùng đến công viên và [...] vào một ngày nắng đẹp nào.\"\n        2. Phân tích 4 đáp án:\n        - A. hurry up (phrasal verb - cụm động từ): khẩn trương, nhanh lên.\n        - B. fly kites (phrase - cụm từ): thả diều.\n        - C. visit the rock (phrase - cụm từ): đi thăm tảng đá.\n        - D. bring clothes (phrase - cụm từ): mang quần áo.\n        3. Tại sao chọn B? Công viên (\"the park\") và một ngày nắng gió đẹp (\"sunny day\") là bối cảnh và điều kiện lý tưởng phục vụ cho hoạt động vui chơi giải trí ngoài trời của trẻ em là \"thả diều\".\n        4. Tại sao các đáp án khác sai? A không hợp logic câu rủ rê vui chơi. C và D không phải hoạt động phổ biến đặc trưng cho một buổi đi chơi công viên ngày nắng của học sinh.\n        "}, {"id": "ex3_5", "exercise": "Exercise 3", "question": "5. Bring your ______ so that you can call me when you get there.", "options": ["waterproof coat", "tent", "compass.", "mobile phone"], "correct": "mobile phone", "explanation": "\n        1. Dịch câu hỏi: \"Hãy mang theo [...] của con để con có thể gọi điện cho cô khi con đến đó.\"\n        2. Phân tích 4 đáp án:\n        - A. waterproof coat (noun - danh từ): áo khoác chống thấm nước / áo mưa.\n        - B. tent (noun - danh từ): cái lều trại.\n        - C. compass (noun - danh từ): cái la bàn.\n        - D. mobile phone (noun - danh từ): điện thoại di động.\n        3. Tại sao chọn D? Manh mối nằm ở mục đích hành động: \"call me\" (gọi điện thoại cho tôi/cô). Thiết bị duy nhất dùng để gọi điện liên lạc giữa các đáp án là điện thoại di động.\n        4. Tại sao các đáp án khác sai? Áo chống nước (A), lều (B) và la bàn (C) đều không có chức năng phát sóng và thực hiện cuộc gọi viễn thông liên lạc.\n        "}, {"id": "ex3_6", "exercise": "Exercise 3", "question": "6. We decided to stay ______ in a small house.", "options": ["alone", "cold", "overnight", "deep"], "correct": "overnight", "explanation": "\n        1. Dịch câu hỏi: \"Chúng tôi đã quyết định ở lại [...] trong một ngôi nhà nhỏ.\"\n        2. Phân tích 4 đáp án:\n        - A. alone (adjective/adverb - tính/trạng từ): một mình.\n        - B. cold (adjective - tính từ): lạnh giá.\n        - C. overnight (adverb/adjective - trạng/tính từ): qua đêm.\n        - D. deep (adjective/adverb - tính/trạng từ): sâu sắc, sâu thẳm.\n        3. Tại sao chọn C? Cụm động từ \"stay overnight\" là một collocation rất phổ biến mang nghĩa là \"ở lại qua đêm\" tại một địa điểm nào đó, hoàn toàn thích hợp với bối cảnh trú lại trong ngôi nhà nhỏ.\n        4. Tại sao các đáp án khác sai? B và D sai hoàn toàn về mặt kết hợp ngữ nghĩa ngữ cảnh. A nếu dùng \"stay alone\" thì nghĩa ngữ pháp tạm chấp nhận nhưng xét theo tổng thể chủ ngữ số nhiều \"We\" (Chúng tôi) thì việc chọn \"overnight\" (qua đêm) mang tính logic và tự nhiên cao nhất.\n        "}, {"id": "ex3_7", "exercise": "Exercise 3", "question": "7. The ______ gives us some information about the places.", "options": ["geography", "travel guide", "waterfall", "national park"], "correct": "travel guide", "explanation": "\n        1. Dịch câu hỏi: \"[...] cung cấp cho chúng ta một số thông tin bổ ích về các địa danh.\"\n        2. Phân tích 4 đáp án:\n        - A. geography (noun - danh từ): môn địa lý / đặc điểm địa lý.\n        - B. travel guide (noun - danh từ): sách hướng dẫn du lịch hoặc người hướng dẫn du lịch.\n        - C. waterfall (noun - danh từ): thác nước.\n        - D. national park (noun - danh từ): vườn quốc gia.\n        3. Tại sao chọn B? Vật dụng hoặc người có chức năng cốt lõi là \"gives information about the places\" (cung cấp thông tin về các địa điểm hành trình) chính là cẩm nang/hướng dẫn viên du lịch.\n        4. Tại sao các đáp án khác sai? Địa lý (A) là một lĩnh vực học thuật tổng quát. Thác nước (C) và vườn quốc gia (D) là các cảnh quan thiên nhiên kỳ quan, không tự thực hiện hành động cung cấp thông tin văn bản.\n        "}, {"id": "ex3_8", "exercise": "Exercise 3", "question": "8. The ______ of the countryside is beautiful.", "options": ["cave", "slope", "landscape", "rock"], "correct": "landscape", "explanation": "\n        1. Dịch câu hỏi: \"[...] của vùng nông thôn thật là xinh đẹp tuyệt trần.\"\n        2. Phân tích 4 đáp án:\n        - A. cave (noun - danh từ): hang động.\n        - B. slope (noun - danh từ): dốc, sườn núi.\n        - C. landscape (noun - danh từ): phong cảnh, cảnh quan thiên nhiên tổng thể.\n        - D. rock (noun - danh từ): tảng đá.\n        3. Tại sao chọn C? Khi nói về vẻ đẹp bao quát, thơ mộng của cả một vùng quê nông thôn, người ta luôn sử dụng danh từ tổng hợp \"landscape\" (phong cảnh nông thôn).\n        4. Tại sao các đáp án khác sai? Hang động (A), sườn dốc (B), tảng đá (D) chỉ là những tiểu tiết cảnh vật cụ thể đơn lẻ, không đại diện bao quát được cho toàn bộ nét đẹp tự nhiên của vùng quê.\n        "}, {"id": "ex3_9", "exercise": "Exercise 3", "question": "9. A ______ helps you see things at night.", "options": ["sun cream", "torch", "sleeping bag", "sun hat."], "correct": "torch", "explanation": "\n        1. Dịch câu hỏi: \"Một chiếc [...] giúp con có thể nhìn rõ mọi vật vào ban đêm.\"\n        2. Phân tích 4 đáp án:\n        - A. sun cream (noun - danh từ): kem chống nắng.\n        - B. torch (noun - danh từ): đèn pin (tiếng Anh-Anh).\n        - C. sleeping bag (noun - danh từ): túi ngủ.\n        - D. sun hat (noun - danh từ): mũ chống nắng.\n        3. Tại sao chọn B? Để nhìn thấy vạn vật trong bóng tối đêm đen (\"see things at night\"), chúng ta bắt buộc cần một nguồn phát sáng nhân tạo cơ động, đó chính là chiếc đèn pin (\"torch\").\n        4. Tại sao các đáp án khác sai? Kem chống nắng (A) và mũ (D) dùng để bảo vệ cơ thể trước ánh nắng mặt trời ban ngày. Túi ngủ (C) dùng để giữ ấm khi ngủ, không có chức năng phát sáng.\n        "}, {"id": "ex3_10", "exercise": "Exercise 3", "question": "10. A lion is regarded as a ______ beast in African jungles.", "options": ["dangerous", "dangerousness", "dangers", "dangerously"], "correct": "dangerous", "explanation": "\n        1. Dịch câu hỏi: \"Sư tử được xem là một loài dã thú hung dữ và nguy hiểm trong các khu rừng châu Phi.\"\n        2. Phân tích 4 đáp án (Từ loại):\n        - A. dangerous (adjective - tính từ): mang tính nguy hiểm.\n        - B. dangerousness (noun - danh từ): sự nguy hiểm.\n        - C. dangers (noun - danh từ số nhiều): những mối hiểm họa.\n        - D. dangerously (adverb - trạng từ): một cách nguy hiểm.\n        3. Tại sao chọn A? Vị trí trống đứng sau mạo từ \"a\" và đứng ngay trước danh từ \"beast\" (dã thú/quái thú). Theo trật tự từ loại tiếng Anh, ta cần điền một TÍNH TỪ để bổ nghĩa cho danh từ đứng sau nó. Do đó ta chọn \"dangerous\".\n        4. Tại sao các đáp án khác sai? B và C sai vì không thể đặt danh từ trực tiếp bổ nghĩa liền mạch như vậy. D sai vì trạng từ không đứng trước danh từ để bổ nghĩa trực tiếp cho danh từ đó.\n        "}, {"id": "ex3_11", "exercise": "Exercise 3", "question": "11. The temple is a popular ______.", "options": ["tourist attraction", "coat", "travel item", "luggage"], "correct": "tourist attraction", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Ngôi đền là một điểm đến thu hút khách du lịch nổi tiếng.\"</p>\n    <div class=\"exp-section-title\">Phân tích từ vựng đáp án:</div>\n    <ul class=\"exp-list\"><li><b>tourist attraction</b></li><li><b>coat</b></li><li><b>travel item</b></li><li><b>luggage</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án đúng?</div>\n    <p style=\"margin:4px 0;\">Mô tả một công trình danh thắng kiến trúc cổ xưa thu hút đông người đến tham quan thì cụm danh từ 'tourist attraction' (địa điểm thu hút khách du lịch) là hoàn toàn chuẩn xác.</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">Các từ khác như coat (áo khoác), travel item (vật dụng du lịch), luggage (hành lý) không tương thích về nghĩa định nghĩa của một ngôi đền.</p>\n    "}, {"id": "ex3_12", "exercise": "Exercise 3", "question": "12. The Himalayas is a mountain range. It’s very ______.", "options": ["specialness", "specially", "special", "specialty"], "correct": "special", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Dãy Himalaya là một dãy núi. Nó rất đặc biệt.\"</p>\n    <div class=\"exp-section-title\">Phân tích từ vựng đáp án:</div>\n    <ul class=\"exp-list\"><li><b>specialness</b></li><li><b>specially</b></li><li><b>special</b></li><li><b>specialty</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án đúng?</div>\n    <p style=\"margin:4px 0;\">Vị trí cần điền đứng sau cấu trúc [Chủ ngữ + To-be 'is' + trạng từ chỉ mức độ 'very']. Vị trí này bắt buộc phải điền một TÍNH TỪ (Adjective) đóng vai trò làm vị ngữ cho câu. Do đó ta chọn 'special'.</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">specialness (danh từ), specially (trạng từ), specialty (danh từ chuyên môn/đặc sản) đều sai cấu trúc từ loại quy định.</p>\n    "}, {"id": "ex3_13", "exercise": "Exercise 3", "question": "13. Visitors can join ______ activities in Ha Long Bay.", "options": ["exciting", "excite", "excitement", "excitingly"], "correct": "exciting", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Du khách có thể tham gia vào các hoạt động vô cùng thú vị tại Vịnh Hạ Long.\"</p>\n    <div class=\"exp-section-title\">Phân tích từ vựng đáp án:</div>\n    <ul class=\"exp-list\"><li><b>exciting</b></li><li><b>excite</b></li><li><b>excitement</b></li><li><b>excitingly</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án đúng?</div>\n    <p style=\"margin:4px 0;\">Chỗ trống đứng trước danh từ số nhiều 'activities' (các hoạt động). Ta cần một tính từ mang tính chủ động mô tả tính chất của hoạt động đó kích thích, hấp dẫn khách, chọn tính từ đuôi -ing: 'exciting'.</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">excite (động từ), excitement (danh từ), excitingly (trạng từ) không thể đứng ở vị trí bổ nghĩa trực tiếp cho danh từ.</p>\n    "}, {"id": "ex3_14", "exercise": "Exercise 3", "question": "14. We love to ______ and sleep under the stars.", "options": ["explore the cave", "follow the rules", "enjoy the waterfall", "go camping"], "correct": "go camping", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Chúng tôi thích đi cắm trại và ngủ dưới bầu trời đầy sao.\"</p>\n    <div class=\"exp-section-title\">Phân tích từ vựng đáp án:</div>\n    <ul class=\"exp-list\"><li><b>explore the cave</b></li><li><b>follow the rules</b></li><li><b>enjoy the waterfall</b></li><li><b>go camping</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án đúng?</div>\n    <p style=\"margin:4px 0;\">Hành động song song 'sleep under the stars' (ngủ dưới các vì sao) chính là đặc trưng bản chất của việc đi cắm trại dã ngoại ngoài trời ('go camping').</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">explore the cave (khám phá hang), follow the rules (tuân thủ luật), enjoy the waterfall (thưởng thức thác nước) không kết nối trực tiếp logic với việc ngủ qua đêm dưới trời sao.</p>\n    "}, {"id": "ex3_15", "exercise": "Exercise 3", "question": "15. Ayres Rock is not the highest mountain ______ Australia.", "options": ["on", "at", "in", "of"], "correct": "in", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Núi Đá Ayres không phải là ngọn núi cao nhất ở nước Úc.\"</p>\n    <div class=\"exp-section-title\">Phân tích từ vựng đáp án:</div>\n    <ul class=\"exp-list\"><li><b>on</b></li><li><b>at</b></li><li><b>in</b></li><li><b>of</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án đúng?</div>\n    <p style=\"margin:4px 0;\">Để chỉ vị trí địa lý bên trong một quốc gia, châu lục hoặc một khu vực địa lý lớn rộng lớn (như nước Úc - Australia), giới từ chuẩn xác bắt buộc phải dùng là 'in'.</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">Giới từ on (trên bề mặt), at (tại một điểm nhỏ cố định), of (thuộc về) đều sai quy tắc sử dụng giới từ chỉ nơi chốn địa lý.</p>\n    "}, {"id": "ex3_16", "exercise": "Exercise 3", "question": "16. You carry only ______ things for your trip.", "options": ["necessarily", "unnecessary", "necessary", "necessary"], "correct": "necessary", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Con chỉ nên mang theo những vật dụng thực sự cần thiết cho chuyến đi của mình.\"</p>\n    <div class=\"exp-section-title\">Phân tích từ vựng đáp án:</div>\n    <ul class=\"exp-list\"><li><b>necessarily</b></li><li><b>unnecessary</b></li><li><b>necessary</b></li><li><b>necessary</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án đúng?</div>\n    <p style=\"margin:4px 0;\">Vị trí đứng trước danh từ 'things' đòi hỏi một tính từ bổ nghĩa. Xét theo ngữ cảnh lời khuyên đi du lịch dã ngoại thuận tiện, chúng ta chỉ nên mang đồ dùng cần thiết ('necessary').</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">necessarily (trạng từ), unnecessary (tính từ nghĩa là không cần thiết - sai logic hành lý), unnecessarily (trạng từ) đều không phù hợp.</p>\n    "}, {"id": "ex3_17", "exercise": "Exercise 3", "question": "17. We can use ______ bag when we go camping.", "options": ["sleepless", "sleeping", "sleeper", "sleepy"], "correct": "sleeping", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Chúng ta có thể sử dụng túi ngủ khi chúng ta đi cắm trại.\"</p>\n    <div class=\"exp-section-title\">Phân tích từ vựng đáp án:</div>\n    <ul class=\"exp-list\"><li><b>sleepless</b></li><li><b>sleeping</b></li><li><b>sleeper</b></li><li><b>sleepy</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án đúng?</div>\n    <p style=\"margin:4px 0;\">Cụm danh từ ghép cố định trong tiếng Anh chỉ chiếc túi chuyên dụng để nằm ngủ khi đi dã ngoại là 'sleeping bag' (túi ngủ).</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">Các từ ghép khác như sleepless (mất ngủ), sleeper (toa tàu ngủ / người ngủ), sleepy (buồn ngủ) không tạo thành từ ghép có nghĩa với 'bag'.</p>\n    "}, {"id": "ex3_18", "exercise": "Exercise 3", "question": "18. Tuan Chau is one ______ the largest islands.", "options": ["at", "in", "of", "to"], "correct": "of", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Tuần Châu là một trong những hòn đảo lớn nhất.\"</p>\n    <div class=\"exp-section-title\">Phân tích từ vựng đáp án:</div>\n    <ul class=\"exp-list\"><li><b>at</b></li><li><b>in</b></li><li><b>of</b></li><li><b>to</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án đúng?</div>\n    <p style=\"margin:4px 0;\">Cấu trúc so sánh hơn nhất kết hợp tuyển lựa thành phần quen thuộc: 'one of + the + so sánh nhất + danh từ số nhiều' mang nghĩa cấu trúc là 'một trong những cái gì đó'. Do đó chọn giới từ 'of'.</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">Giới từ at, in, to không nằm trong cấu trúc diễn đạt bản chất chọn lựa 'một trong số' này.</p>\n    "}, {"id": "ex3_19", "exercise": "Exercise 3", "question": "19. ______ can protect you from the sun.", "options": ["Lake", "Sun cream", "Sleeping bag", "Desert"], "correct": "Sun cream", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"[...] có thể bảo vệ con tránh khỏi tác hại của ánh nắng mặt trời.\"</p>\n    <div class=\"exp-section-title\">Phân tích từ vựng đáp án:</div>\n    <ul class=\"exp-list\"><li><b>Lake</b></li><li><b>Sun cream</b></li><li><b>Sleeping bag</b></li><li><b>Desert</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án đúng?</div>\n    <p style=\"margin:4px 0;\">Tác dụng bảo vệ làn da khỏi tia cực tím của ánh mặt trời ('protect you from the sun') là tính năng sinh học của sản phẩm kem chống nắng ('Sun cream').</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">Lake (hồ nước), Sleeping bag (túi ngủ), Desert (sa mạc) không có công dụng bôi da để chống nắng.</p>\n    "}, {"id": "ex3_20", "exercise": "Exercise 3", "question": "20. The ______ shows us around the city.", "options": ["hotel", "tour guide", "island", "tourist"], "correct": "tour guide", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"[...] dẫn chúng tôi đi tham quan xung quanh thành phố.\"</p>\n    <div class=\"exp-section-title\">Phân tích từ vựng đáp án:</div>\n    <ul class=\"exp-list\"><li><b>hotel</b></li><li><b>tour guide</b></li><li><b>island</b></li><li><b>tourist</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án đúng?</div>\n    <p style=\"margin:4px 0;\">Chủ ngữ thực hiện hành động dẫn khách đi tham quan, giới thiệu các danh lam thắng cảnh xung quanh thành phố ('shows us around the city') chỉ có thể là hướng dẫn viên du lịch ('tour guide').</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">hotel (khách sạn), island (hòn đảo), tourist (khách du lịch - người được dẫn đi chứ không phải người dẫn đường) đều không hợp ngữ cảnh.</p>\n    "}, {"id": "ex3_21", "exercise": "Exercise 3", "question": "21. Look! The boy is wearing a heavy ______. I think he has everything in it.", "options": ["valley", "mountain", "beach", "backpack"], "correct": "backpack", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Nhìn kìa! Cậu bé đang đeo một chiếc ba lô rất nặng. Mình nghĩ cậu ấy đựng tất cả mọi thứ bên trong đó.\"</p>\n    <div class=\"exp-section-title\">Phân tích từ vựng đáp án:</div>\n    <ul class=\"exp-list\"><li><b>valley</b></li><li><b>mountain</b></li><li><b>beach</b></li><li><b>backpack</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án đúng?</div>\n    <p style=\"margin:4px 0;\">Hành động 'wearing' (đang mang/đeo trên vai) kết hợp với chi tiết 'has everything in it' (có mọi thứ bên trong nó) giúp ta khẳng định vật dụng này chính là chiếc ba lô du lịch ('backpack').</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">valley (thung lũng), mountain (ngọn núi), beach (bãi biển) là những thực thể địa lý tự nhiên khổng lồ, con người không thể đeo trên người.</p>\n    "}, {"id": "ex3_22", "exercise": "Exercise 3", "question": "22. Do you have any ______? I’ve cut my finger.", "options": ["river", "plaster", "sun cream", "scissors"], "correct": "plaster", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Bạn có cái băng gạc cá nhân nào không? Mình vừa bị đứt tay rồi.\"</p>\n    <div class=\"exp-section-title\">Phân tích từ vựng đáp án:</div>\n    <ul class=\"exp-list\"><li><b>river</b></li><li><b>plaster</b></li><li><b>sun cream</b></li><li><b>scissors</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án đúng?</div>\n    <p style=\"margin:4px 0;\">Khi bị đứt tay chảy máu ('cut my finger'), vật dụng y tế thiết yếu sơ cứu tức thì để cầm máu và bảo vệ vết thương là miếng băng gạc cá nhân ('plaster').</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">river (sông), sun cream (kem chống nắng), scissors (cái kéo) không dùng để dán vết thương đứt tay.</p>\n    "}, {"id": "ex3_23", "exercise": "Exercise 3", "question": "23. Don’t forget to bring ______ clothing to play water sports.", "options": ["waterproof", "warm", "special", "dry"], "correct": "waterproof", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Đừng quên mang theo quần áo chống thấm nước để chơi các môn thể thao dưới nước nhé.\"</p>\n    <div class=\"exp-section-title\">Phân tích từ vựng đáp án:</div>\n    <ul class=\"exp-list\"><li><b>waterproof</b></li><li><b>warm</b></li><li><b>special</b></li><li><b>dry</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án đúng?</div>\n    <p style=\"margin:4px 0;\">Khi chơi các môn thể thao dưới nước (water sports), trang phục cần có tính năng đặc biệt chống thấm nước ('waterproof') để cơ thể không bị ngấm nước lạnh.</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">warm (ấm áp), special (đặc biệt), dry (khô ráo) không mô tả đúng đặc tính kỹ thuật chống ngấm nước cần thiết bằng từ 'waterproof'.</p>\n    "}, {"id": "ex3_24", "exercise": "Exercise 3", "question": "24. You can see spectacular scenery ______ the falls.", "options": ["in", "on", "at", "from"], "correct": "from", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Bạn có thể chiêm ngưỡng phong cảnh hùng vĩ, ngoạn mục từ phía thác nước.\"</p>\n    <div class=\"exp-section-title\">Phân tích từ vựng đáp án:</div>\n    <ul class=\"exp-list\"><li><b>in</b></li><li><b>on</b></li><li><b>at</b></li><li><b>from</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án đúng?</div>\n    <p style=\"margin:4px 0;\">Để ngắm nhìn toàn cảnh cảnh quan thiên nhiên tráng lệ, người ta thường đứng từ một vị trí hoặc góc nhìn hướng ra: giới từ 'from' (từ nơi nào) thể hiện điểm xuất phát của góc nhìn phong cảnh.</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">Giới từ in (trong), on (trên), at (tại một điểm định vị) không lột tả được hướng nhìn ngắm cảnh quan tự nhiên tốt bằng 'from'.</p>\n    "}, {"id": "ex3_25", "exercise": "Exercise 3", "question": "25. I don't know where to go now. Pass me the ______, please.", "options": ["map", "sleeping bag", "backpack", "sun hat"], "correct": "map", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Bây giờ mình không biết phải đi đường nào cả. Làm ơn đưa hộ mình tấm bản đồ với.\"</p>\n    <div class=\"exp-section-title\">Phân tích từ vựng đáp án:</div>\n    <ul class=\"exp-list\"><li><b>map</b></li><li><b>sleeping bag</b></li><li><b>backpack</b></li><li><b>sun hat</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án đúng?</div>\n    <p style=\"margin:4px 0;\">Tình huống 'don't know where to go' (không biết đi đâu, bị lạc phương hướng) dẫn tới nhu cầu cần sử dụng dụng cụ chỉ dẫn đường đi và vị trí địa lý, đó là tấm bản đồ ('map').</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">sleeping bag (túi ngủ), backpack (ba lô), sun hat (mũ nắng) không có tính năng định vị chỉ đường.</p>\n    "}, {"id": "ex3_26", "exercise": "Exercise 3", "question": "26. This ______ is famous for its sandy beaches.", "options": ["slope", "river", "area", "mount"], "correct": "area", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Vùng/Khu vực này rất nổi tiếng với những bãi biển đầy cát trắng mịn.\"</p>\n    <div class=\"exp-section-title\">Phân tích từ vựng đáp án:</div>\n    <ul class=\"exp-list\"><li><b>slope</b></li><li><b>river</b></li><li><b>area</b></li><li><b>mount</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án đúng?</div>\n    <p style=\"margin:4px 0;\"> sandy beaches (bãi biển nhiều cát) là đặc điểm địa lý thuộc về một vùng đất, một khu vực không gian rộng lớn, từ phù hợp nhất là 'area' (vùng, khu vực).</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">slope (sườn dốc), river (dòng sông - không chứa bãi biển đại dương), mount (ngọn núi) đều mâu thuẫn địa lý với bãi biển.</p>\n    "}, {"id": "ex3_27", "exercise": "Exercise 3", "question": "27. Be careful! The ______ are very sharp.", "options": ["waterfall", "walking boots", "scissors", "cave"], "correct": "scissors", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Hãy cẩn thận! Chiếc kéo đó rất là sắc bén đấy.\"</p>\n    <div class=\"exp-section-title\">Phân tích từ vựng đáp án:</div>\n    <ul class=\"exp-list\"><li><b>waterfall</b></li><li><b>walking boots</b></li><li><b>scissors</b></li><li><b>cave</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án đúng?</div>\n    <p style=\"margin:4px 0;\">Manh mối nằm ở tính từ 'sharp' (sắc bén, có tính cắt đứt). Trong các đồ vật, cây kéo ('scissors') là dụng cụ có lưỡi cắt sắc bén nguy hiểm cần chú ý.</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">waterfall (thác nước), walking boots (giày đi bộ), cave (hang động) không mang tính chất sắc bén cơ học như lưỡi kéo.</p>\n    "}, {"id": "ex3_28", "exercise": "Exercise 3", "question": "28. We won't cut anything, so these ______ are not necessary.", "options": ["plasters.", "scissors", "walking boots", "travel items"], "correct": "scissors", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Chúng ta sẽ không cắt bất cứ thứ gì đâu, vì vậy chiếc kéo này là không cần thiết.\"</p>\n    <div class=\"exp-section-title\">Phân tích từ vựng đáp án:</div>\n    <ul class=\"exp-list\"><li><b>plasters.</b></li><li><b>scissors</b></li><li><b>walking boots</b></li><li><b>travel items</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án đúng?</div>\n    <p style=\"margin:4px 0;\">Câu có chứa động từ 'cut' (cắt bỏ, chia cắt). Dụng cụ chuyên dụng dùng để cắt chính là cây kéo ('scissors'). Vì không cần cắt gì nên kéo trở nên không cần thiết.</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">plasters (băng dán), walking boots (giày bộ), travel items (đồ du lịch) không dùng để thực hiện hành động cắt.</p>\n    "}, {"id": "ex3_29", "exercise": "Exercise 3", "question": "29. Don’t forget to put on ______ to protect your skin.", "options": ["plaster", "suncream", "luggage", "umbrella"], "correct": "suncream", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Đừng quên thoa kem chống nắng để bảo vệ làn da của con nhé.\"</p>\n    <div class=\"exp-section-title\">Phân tích từ vựng đáp án:</div>\n    <ul class=\"exp-list\"><li><b>plaster</b></li><li><b>suncream</b></li><li><b>luggage</b></li><li><b>umbrella</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án đúng?</div>\n    <p style=\"margin:4px 0;\">Hành động 'put on' (thoa, bôi lên da) kết hợp mục đích 'protect your skin' (bảo vệ làn da) là cấu trúc chuẩn để nói về việc sử dụng kem chống nắng ('suncream').</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">plaster (băng dán), luggage (hành lý), umbrella (chiếc ô - dùng hành động 'open/bring' chứ không dùng 'put on' thoa da).</p>\n    "}, {"id": "ex3_30", "exercise": "Exercise 3", "question": "30. The playground has a ______ climbing wall for kids to enjoy.", "options": ["amazing", "man-made", "charming", "natural"], "correct": "man-made", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Sân chơi có một bức tường leo núi nhân tạo để các bạn nhỏ thỏa thích vui chơi.\"</p>\n    <div class=\"exp-section-title\">Phân tích từ vựng đáp án:</div>\n    <ul class=\"exp-list\"><li><b>amazing</b></li><li><b>man-made</b></li><li><b>charming</b></li><li><b>natural</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án đúng?</div>\n    <p style=\"margin:4px 0;\">Bức tường leo núi nằm trong một sân chơi dành cho trẻ em (playground) là công trình do con người xây dựng nên, dùng tính từ 'man-made' (nhân tạo).</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">Mặc dù 'amazing' hay 'charming' có thể khen ngợi, nhưng xét tính chất phân loại công trình giải trí trong sân chơi thiếu nhi thì bức tường này bản chất là nhân tạo. Lưu ý 'amazing' bắt đầu bằng nguyên âm nên không đi với mạo từ 'a' đứng trước chỗ trống.</p>\n    "}, {"id": "ex3_31", "exercise": "Exercise 3", "question": "31. When you go into the forest, you need a map and a ______. ", "options": ["plaster", "painkiller", "compass", "backpack"], "correct": "compass", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Khi con đi vào sâu trong rừng, con cần mang theo một tấm bản đồ và một chiếc la bàn.\"</p>\n    <div class=\"exp-section-title\">Phân tích từ vựng đáp án:</div>\n    <ul class=\"exp-list\"><li><b>plaster</b></li><li><b>painkiller</b></li><li><b>compass</b></li><li><b>backpack</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án đúng?</div>\n    <p style=\"margin:4px 0;\">Đi vào rừng sâu rất dễ mất phương hướng định vị. Bên cạnh bản đồ ('map'), dụng cụ bắt buộc đi kèm để xác định các hướng Đông Tây Nam Bắc là chiếc la bàn ('compass').</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">plaster (băng dán), painkiller (thuốc giảm đau), backpack (ba lô - đã mang sẵn từ đầu chứ không mang tính chất cặp đôi tìm đường như compass).</p>\n    "}, {"id": "ex3_32", "exercise": "Exercise 3", "question": "32. You must ______ on time.", "options": ["arrive", "arrives", "are arriving", "to arrive"], "correct": "arrive", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Con bắt buộc phải đến đúng giờ.\"</p>\n    <div class=\"exp-section-title\">Phân tích từ vựng đáp án:</div>\n    <ul class=\"exp-list\"><li><b>arrive</b></li><li><b>arrives</b></li><li><b>are arriving</b></li><li><b>to arrive</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án đúng?</div>\n    <p style=\"margin:4px 0;\">Sau động từ khuyết thiếu chỉ sự bắt buộc 'must', ta luôn sử dụng động từ ở dạng NGUYÊN THỂ KHÔNG TO (Bare infinitive). Do đó chọn 'arrive'.</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">arrives (chia ngôi số ít), are arriving (thì tiếp diễn), to arrive (có to) đều vi phạm công thức ngữ pháp của động từ khuyết thiếu.</p>\n    "}, {"id": "ex3_33", "exercise": "Exercise 3", "question": "33. How ______ traffic is on the freeway now?", "options": ["many", "a", "few", "much"], "correct": "much", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Tình hình giao thông trên đường cao tốc hiện giờ như thế nào (kẹt xe nhiều không)?\"</p>\n    <div class=\"exp-section-title\">Phân tích từ vựng đáp án:</div>\n    <ul class=\"exp-list\"><li><b>many</b></li><li><b>a</b></li><li><b>few</b></li><li><b>much</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án đúng?</div>\n    <p style=\"margin:4px 0;\">Danh từ 'traffic' (giao thông/lượng xe cộ) là một danh từ KHÔNG ĐẾM ĐƯỢC. Để hỏi lượng cho danh từ không đếm được, ta dùng cấu trúc 'How much'.</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">How many (dùng danh từ đếm được số nhiều). 'a' và 'few' không đi với từ để hỏi 'How' trong cấu trúc hỏi số lượng này.</p>\n    "}, {"id": "ex3_34", "exercise": "Exercise 3", "question": "34. You should put on ______ suncream when you go out in summer.", "options": ["many", "some", "a few", "few"], "correct": "some", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Con nên thoa một ít kem chống nắng khi con đi ra ngoài đường vào mùa hè.\"</p>\n    <div class=\"exp-section-title\">Phân tích từ vựng đáp án:</div>\n    <ul class=\"exp-list\"><li><b>many</b></li><li><b>some</b></li><li><b>a few</b></li><li><b>few</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án đúng?</div>\n    <p style=\"margin:4px 0;\">Danh từ 'suncream' là danh từ không đếm được. Trong câu khẳng định đưa ra lời khuyên, ta dùng từ định lượng 'some' (một vài, một ít).</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">many và a few/few bắt buộc phải kết hợp với danh từ đếm được số nhiều.</p>\n    "}, {"id": "ex3_35", "exercise": "Exercise 3", "question": "35. \"Have you got anything to read?\" \"Yes, I have ______ magazines.\"", "options": ["much", "a little", "a lot of", "a few"], "correct": "a few", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"\"Cậu có cái gì để đọc không?\" \"Có chứ, tớ có một vài cuốn tạp chí này.\"\"</p>\n    <div class=\"exp-section-title\">Phân tích từ vựng đáp án:</div>\n    <ul class=\"exp-list\"><li><b>much</b></li><li><b>a little</b></li><li><b>a lot of</b></li><li><b>a few</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án đúng?</div>\n    <p style=\"margin:4px 0;\">Danh từ 'magazines' (các cuốn tạp chí) là danh từ ĐẾM ĐƯỢC SỐ NHIỀU (có đuôi -s). Ta dùng 'a few' để chỉ số lượng có một vài (mang tính tích cực, đủ đọc).</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">much và a little đi với danh từ không đếm được. 'a lot of' xét về nghĩa thì nhiều quá so với ngữ cảnh hội thoại trả lời tự nhiên hữu ý.</p>\n    "}, {"id": "ex3_36", "exercise": "Exercise 3", "question": "36. If you plan to climb that mountain, you need ______ good equipment.", "options": ["few", "much", "any", "some"], "correct": "some", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Nếu cậu có kế hoạch leo ngọn núi đó, cậu cần một số trang thiết bị thật tốt.\"</p>\n    <div class=\"exp-section-title\">Phân tích từ vựng đáp án:</div>\n    <ul class=\"exp-list\"><li><b>few</b></li><li><b>much</b></li><li><b>any</b></li><li><b>some</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án đúng?</div>\n    <p style=\"margin:4px 0;\">Danh từ 'equipment' (trang thiết bị) là một danh từ KHÔNG ĐẾM ĐƯỢC. Trong câu khẳng định điều kiện này, ta dùng 'some' để diễn đạt ý cần một vài/một ít đồ dùng tốt.</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">few chỉ đi với danh từ đếm được. any dùng trong câu phủ định/nghi vấn. much thường dùng trong câu phủ định hoặc đi kèm too/so chứ ít đứng độc lập câu khẳng định như này.</p>\n    "}, {"id": "ex3_37", "exercise": "Exercise 3", "question": "37. If you have ______ milk in the fridge, can you give me a little?", "options": ["a", "few", "much", "any"], "correct": "any", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Nếu bạn còn bất kỳ chút sữa nào trong tủ lạnh, bạn có thể cho tôi một ít được không?\"</p>\n    <div class=\"exp-section-title\">Phân tích từ vựng đáp án:</div>\n    <ul class=\"exp-list\"><li><b>a</b></li><li><b>few</b></li><li><b>much</b></li><li><b>any</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án đúng?</div>\n    <p style=\"margin:4px 0;\">Trong mệnh đề điều kiện của câu điều kiện loại 1 (mệnh đề If), từ định lượng 'any' thường được dùng để diễn đạt ý 'có bất kỳ lượng nào'.</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">milk là danh từ không đếm được nên không dùng 'a' hoặc 'few'.</p>\n    "}, {"id": "ex3_38", "exercise": "Exercise 3", "question": "38. Thanks for a great weekend! We really had ______ good time.", "options": ["a", "few", "some", "any"], "correct": "a", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Cảm ơn vì một kỳ nghỉ cuối tuần tuyệt vời! Chúng tôi thực sự đã có một khoảng thời gian rất vui vẻ.\"</p>\n    <div class=\"exp-section-title\">Phân tích từ vựng đáp án:</div>\n    <ul class=\"exp-list\"><li><b>a</b></li><li><b>few</b></li><li><b>some</b></li><li><b>any</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án đúng?</div>\n    <p style=\"margin:4px 0;\">Ta có cụm từ thành ngữ cố định (collocation) diễn đạt việc có một khoảng thời gian trải nghiệm vui vẻ, hạnh phúc là: 'have a good time'. Do đó ta chọn mạo từ 'a'.</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">Các phương án few, some, any không thể thay thế mạo từ 'a' trong cụm từ cố định này.</p>\n    "}, {"id": "ex3_39", "exercise": "Exercise 3", "question": "39. You must ______ your room now.", "options": ["to clean", "is cleaning", "cleaning", "clean"], "correct": "clean", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Con phải dọn dẹp phòng của con ngay lập tức.\"</p>\n    <div class=\"exp-section-title\">Phân tích từ vựng đáp án:</div>\n    <ul class=\"exp-list\"><li><b>to clean</b></li><li><b>is cleaning</b></li><li><b>cleaning</b></li><li><b>clean</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án đúng?</div>\n    <p style=\"margin:4px 0;\">Quy tắc cấu trúc ngữ pháp cốt lõi: Động từ khuyết thiếu 'must' + Động từ nguyên thể không To (V-bare). Do đó từ chính xác là 'clean'.</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">to clean (có to), is cleaning (chia tiếp diễn), cleaning (đuôi -ing) đều sai ngữ pháp sau must.</p>\n    "}, {"id": "ex3_40", "exercise": "Exercise 3", "question": "40. I come here ______ times a year. I like coming here in different seasons.", "options": ["many", "a little", "much", "a few"], "correct": "a few", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Tớ đến đây một vài lần trong năm. Tớ thích cảm giác đến đây vào các mùa khác nhau.\"</p>\n    <div class=\"exp-section-title\">Phân tích từ vựng đáp án:</div>\n    <ul class=\"exp-list\"><li><b>many</b></li><li><b>a little</b></li><li><b>much</b></li><li><b>a few</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án đúng?</div>\n    <p style=\"margin:4px 0;\">Danh từ 'times' ở đây mang nghĩa là 'số lần' (danh từ đếm được số nhiều). Kết hợp với ý thích đi vào các mùa khác nhau (bốn mùa), việc chọn 'a few times' (một vài lần) là hợp lý nhất.</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">a little và much đi với danh từ không đếm được. 'many' thì quá dày đặc mâu thuẫn với việc phân bổ tự nhiên của các mùa.</p>\n    "}, {"id": "ex3_41", "exercise": "Exercise 3", "question": "41. I'm afraid you ______ enter this area. It is dangerous.", "options": ["mustn't", "must to", "to must", "must"], "correct": "mustn't", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Tôi e là các bạn không được phép đi vào khu vực này. Nơi này rất nguy hiểm.\"</p>\n    <div class=\"exp-section-title\">Phân tích từ vựng đáp án:</div>\n    <ul class=\"exp-list\"><li><b>mustn't</b></li><li><b>must to</b></li><li><b>to must</b></li><li><b>must</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án đúng?</div>\n    <p style=\"margin:4px 0;\">Dựa vào thông tin cảnh báo hiểm họa 'It is dangerous' (Nó rất nguy hiểm), ta cần điền một thể phủ định mang tính cấm đoán tuyệt đối: 'mustn't' (không được phép).</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">must mang nghĩa bắt buộc làm (ngược nghĩa). must to và to must sai cấu trúc ngữ pháp.</p>\n    "}, {"id": "ex3_42", "exercise": "Exercise 3", "question": "42. I’m going shopping. I need to buy ______ for my birthday party.", "options": ["a little", "a few", "few", "much"], "correct": "a few", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Tớ chuẩn bị đi mua sắm đây. Tớ cần mua một vài thứ cho bữa tiệc sinh nhật của mình.\"</p>\n    <div class=\"exp-section-title\">Phân tích từ vựng đáp án:</div>\n    <ul class=\"exp-list\"><li><b>a little</b></li><li><b>a few</b></li><li><b>few</b></li><li><b>much</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án đúng?</div>\n    <p style=\"margin:4px 0;\">Cấu trúc câu này ngụ ý mua một vài đồ vật (danh từ đếm được ngầm hiểu như items/things), ta chọn cụm từ đại diện định lượng 'a few' đứng độc lập đóng vai trò đại từ.</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">a little và much đi với vật thể không đếm được. few mang nghĩa tiêu cực hầu như không có gì.</p>\n    "}, {"id": "ex3_43", "exercise": "Exercise 3", "question": "43. There are ______ expensive hotels near the resort.", "options": ["some", "little", "a little", "much"], "correct": "some", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Có một vài khách sạn sang trọng nằm ở gần khu nghỉ dưỡng.\"</p>\n    <div class=\"exp-section-title\">Phân tích từ vựng đáp án:</div>\n    <ul class=\"exp-list\"><li><b>some</b></li><li><b>little</b></li><li><b>a little</b></li><li><b>much</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án đúng?</div>\n    <p style=\"margin:4px 0;\">Danh từ 'hotels' (các khách sạn) là danh từ đếm được số nhiều. Trong câu khẳng định, từ định lượng phù hợp để đi với danh từ số nhiều là 'some' (một vài).</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">little, a little, much chỉ kết hợp với danh từ không đếm được.</p>\n    "}, {"id": "ex3_44", "exercise": "Exercise 3", "question": "44. Nga must ______ home by 10 p.m. every day.", "options": ["be", "are", "is", "am"], "correct": "be", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Nga phải có mặt ở nhà trước 10 giờ tối mỗi ngày.\"</p>\n    <div class=\"exp-section-title\">Phân tích từ vựng đáp án:</div>\n    <ul class=\"exp-list\"><li><b>be</b></li><li><b>are</b></li><li><b>is</b></li><li><b>am</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án đúng?</div>\n    <p style=\"margin:4px 0;\">Sau động từ khuyết thiếu 'must' bắt buộc phải là động từ nguyên thể (Bare infinitive). Nguyên thể của động từ To-be chính là từ 'be'.</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">are, is, am là các biến thể đã chia theo ngôi ở thì hiện tại, không phải nguyên thể.</p>\n    "}, {"id": "ex3_45", "exercise": "Exercise 3", "question": "45. There aren’t ______ natural wonders in that country.", "options": ["much", "many", "some", "a few"], "correct": "many", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Không có nhiều kỳ quan thiên nhiên ở quốc gia đó cho lắm.\"</p>\n    <div class=\"exp-section-title\">Phân tích từ vựng đáp án:</div>\n    <ul class=\"exp-list\"><li><b>much</b></li><li><b>many</b></li><li><b>some</b></li><li><b>a few</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án đúng?</div>\n    <p style=\"margin:4px 0;\">Danh từ 'wonders' (các kỳ quan) là danh từ đếm được số nhiều. Câu mang tính chất phủ định (có từ aren't), từ định lượng phù hợp nhất để nhấn mạnh số lượng trong câu phủ định danh từ số nhiều là 'many'.</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">much đi với danh từ không đếm được. some và a few chỉ dùng phổ biến trong câu khẳng định.</p>\n    "}, {"id": "ex3_46", "exercise": "Exercise 3", "question": "46. I’m going out on Saturday with ______ friends from my class.", "options": ["a few", "much", "a little", "a lot"], "correct": "a few", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Tớ sẽ đi chơi vào ngày thứ Bảy tới cùng với một vài người bạn trong lớp học.\"</p>\n    <div class=\"exp-section-title\">Phân tích từ vựng đáp án:</div>\n    <ul class=\"exp-list\"><li><b>a few</b></li><li><b>much</b></li><li><b>a little</b></li><li><b>a lot</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án đúng?</div>\n    <p style=\"margin:4px 0;\">Danh từ 'friends' (những người bạn) là danh từ đếm được số nhiều. Ta dùng 'a few' (một vài) để bổ nghĩa.</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">much và a little đi với từ không đếm được. 'a lot' nếu muốn đi với danh từ thì phải có giới từ 'of' (a lot of).</p>\n    "}, {"id": "ex3_47", "exercise": "Exercise 3", "question": "47. \"Do you like my present?\" \"Yes, I use it ______.\"", "options": ["some", "a few", "a lot", "a little"], "correct": "a lot", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"\"Cậu có thích món quà tớ tặng không?\" \"Có chứ, tớ sử dụng nó rất nhiều luôn.\"\"</p>\n    <div class=\"exp-section-title\">Phân tích từ vựng đáp án:</div>\n    <ul class=\"exp-list\"><li><b>some</b></li><li><b>a few</b></li><li><b>a lot</b></li><li><b>a little</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án đúng?</div>\n    <p style=\"margin:4px 0;\">Để diễn đạt mức độ hành động động từ 'use it' (sử dụng nó) diễn ra nhiều lần, thường xuyên, ta dùng cụm trạng từ 'a lot' đứng ở cuối câu.</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">some, a few, a little không đóng vai trò làm trạng từ chỉ tần suất/mức độ mạnh mẽ phù hợp cuối câu khẳng định này.</p>\n    "}, {"id": "ex3_48", "exercise": "Exercise 3", "question": "48. My dad is really busy now. He has ______ time to spend with my family.", "options": ["few", "much", "little", "many"], "correct": "little", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Bố của tớ dạo này thực sự rất bận rộn. Bố có rất ít thời gian để ở bên cạnh gia đình.\"</p>\n    <div class=\"exp-section-title\">Phân tích từ vựng đáp án:</div>\n    <ul class=\"exp-list\"><li><b>few</b></li><li><b>much</b></li><li><b>little</b></li><li><b>many</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án đúng?</div>\n    <p style=\"margin:4px 0;\">Danh từ 'time' (thời gian) là danh từ không đếm được. Người bận rộn ('really busy') thì sẽ có hiếm hoi, hầu như không có thời gian, ta dùng tính từ định lượng mang nghĩa phủ định, thiếu thốn là 'little' (rất ít, không đủ).</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">few và many đi với danh từ đếm được. much mang nghĩa là nhiều (mâu thuẫn với từ busy).</p>\n    "}, {"id": "ex3_49", "exercise": "Exercise 3", "question": "49. I met ______ nice people when I was on holiday in Saint Pelersburg last year.", "options": ["any", "a", "some", "few"], "correct": "some", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Tớ đã gặp gỡ một vài người rất tốt bụng khi tớ đi nghỉ mát ở thành phố Saint Petersburg vào năm ngoái.\"</p>\n    <div class=\"exp-section-title\">Phân tích từ vựng đáp án:</div>\n    <ul class=\"exp-list\"><li><b>any</b></li><li><b>a</b></li><li><b>some</b></li><li><b>few</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án đúng?</div>\n    <p style=\"margin:4px 0;\">Danh từ 'people' (người) là danh từ đếm được số nhiều. Trong câu khẳng định kể lại sự việc, ta sử dụng từ định lượng 'some' (một vài).</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">any dùng trong câu phủ định/nghi vấn. mạo từ 'a' đi với danh từ số ít. few mang nghĩa tiêu cực (gần như không gặp ai tốt - không hợp nghĩa khen).</p>\n    "}, {"id": "ex3_50", "exercise": "Exercise 3", "question": "50. Hurry up! We only have ______ time before the train leaves.", "options": ["a little", "a few", "many", "much"], "correct": "a little", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Nhanh lên nào! Chúng ta chỉ còn một chút thời gian ít ỏi trước khi đoàn tàu chuyển bánh thôi.\"</p>\n    <div class=\"exp-section-title\">Phân tích từ vựng đáp án:</div>\n    <ul class=\"exp-list\"><li><b>a little</b></li><li><b>a few</b></li><li><b>many</b></li><li><b>much</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án đúng?</div>\n    <p style=\"margin:4px 0;\">Danh từ 'time' (thời gian) là danh từ không đếm được. Đi kèm với phó từ giới hạn số lượng 'only' (chỉ còn), cụm từ 'only a little time' nghĩa là chỉ còn một chút thời gian ngắn ngủi.</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">a few đi với danh từ đếm được. many và much không đi sau phó từ 'only' trong ngữ cảnh thúc giục thời gian hẹp này.</p>\n    "}, {"id": "ex3_51", "exercise": "Exercise 3", "question": "51. It's rainy and very cold there, so ______ must ______ a waterproof coat.", "options": ["he – take", "she – takes", "you _ taking", "he – take"], "correct": "he – take", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Thời tiết ở đó có mưa và rất lạnh, vì vậy em nên mang theo một chiếc áo khoác chống thấm nước.\"</p>\n    <div class=\"exp-section-title\">Phân tích từ vựng đáp án:</div>\n    <ul class=\"exp-list\"><li><b>he – take</b></li><li><b>she – takes</b></li><li><b>you _ taking</b></li><li><b>he – take</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án đúng?</div>\n    <p style=\"margin:4px 0;\">Cấu trúc bắt buộc sau động từ khuyết thiếu 'must' là động từ nguyên thể không chia. Phương án chứa cặp 'he - take' hoặc tương đương đại từ đi kèm động từ nguyên mẫu (take) là đúng quy định.</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">Các phương án có động từ 'takes' (chia thêm s) hoặc 'taking' (đuôi ing) đều sai quy tắc sau động từ khiếm khuyết.</p>\n    "}, {"id": "ex3_52", "exercise": "Exercise 3", "question": "52. \"Do you have ______ jokes to tell us today?\" \"Yes, some.\"", "options": ["a", "some", "much", "any"], "correct": "any", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"\"Hôm nay cậu có câu chuyện đùa hài hước nào kể cho tụi tớ nghe không?\" \"Có chứ, một vài câu.\"\"</p>\n    <div class=\"exp-section-title\">Phân tích từ vựng đáp án:</div>\n    <ul class=\"exp-list\"><li><b>a</b></li><li><b>some</b></li><li><b>much</b></li><li><b>any</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án đúng?</div>\n    <p style=\"margin:4px 0;\">Đây là câu hỏi (câu nghi vấn) với danh từ đếm được số nhiều 'jokes' (những câu truyện cười). Trong câu nghi vấn thông thường, từ định lượng chuẩn xác cần dùng là 'any'.</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">mạo từ 'a' đi với từ số ít. some thường dùng trong câu khẳng định hoặc mời mọc. much đi với từ không đếm được.</p>\n    "}, {"id": "ex3_53", "exercise": "Exercise 3", "question": "53. You ______ tell him about this now because it's very important.", "options": ["mustn't", "must", "to mustn’t", "to must"], "correct": "must", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Bạn bắt buộc phải nói cho cậu ấy biết về chuyện này ngay bây giờ bởi vì nó cực kỳ quan trọng.\"</p>\n    <div class=\"exp-section-title\">Phân tích từ vựng đáp án:</div>\n    <ul class=\"exp-list\"><li><b>mustn't</b></li><li><b>must</b></li><li><b>to mustn’t</b></li><li><b>to must</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án đúng?</div>\n    <p style=\"margin:4px 0;\">Dựa vào lý do nhấn mạnh 'it's very important' (nó rất quan trọng), hành động này là một nghĩa vụ, bổn phận bắt buộc phải thực hiện -> dùng động từ khuyết thiếu khẳng định 'must'.</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">mustn't mang nghĩa cấm đoán (ngược ý nghĩa câu). Các từ chứa 'to' đều sai ngữ pháp.</p>\n    "}, {"id": "ex3_54", "exercise": "Exercise 3", "question": "54. How ______ cups of coffee does your dad drink every day?", "options": ["little", "some", "much", "many"], "correct": "many", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Mỗi ngày bố của bạn uống bao nhiêu tách cà phê vậy?\"</p>\n    <div class=\"exp-section-title\">Phân tích từ vựng đáp án:</div>\n    <ul class=\"exp-list\"><li><b>little</b></li><li><b>some</b></li><li><b>much</b></li><li><b>many</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án đúng?</div>\n    <p style=\"margin:4px 0;\">Danh từ trung tâm hỏi số lượng là 'cups' (những chiếc tách/cốc) - đây là danh từ đếm được số nhiều. Cấu trúc hỏi số lượng danh từ đếm được số nhiều là 'How many'.</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">How much dùng cho danh từ không đếm được (như từ coffee đứng một mình, nhưng ở đây danh từ chính quyết định là cụm đếm được cups).</p>\n    "}, {"id": "ex3_55", "exercise": "Exercise 3", "question": "55. I always put ______ salt in my food, and doctors say it's not good.", "options": ["a lot of", "a few", "any", "much"], "correct": "a lot of", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Tớ luôn cho rất nhiều muối vào đồ ăn của mình, và các bác sĩ bảo điều đó hoàn toàn không tốt cho sức khỏe.\"</p>\n    <div class=\"exp-section-title\">Phân tích từ vựng đáp án:</div>\n    <ul class=\"exp-list\"><li><b>a lot of</b></li><li><b>a few</b></li><li><b>any</b></li><li><b>much</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án đúng?</div>\n    <p style=\"margin:4px 0;\">Danh từ 'salt' (muối) là danh từ không đếm được. Lời cảnh báo của bác sĩ 'it's not good' chỉ ra tác hại của việc lạm dụng quá nhiều muối -> Dùng cụm từ định lượng chỉ số lượng lớn 'a lot of' (nhiều).</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">a few đi với danh từ đếm được. any dùng trong câu phủ định. much ít dùng trong câu khẳng định tự nhiên kiểu này nếu không có too/so.</p>\n    "}, {"id": "ex3_56", "exercise": "Exercise 3", "question": "56. ______ that my mother prepares are always delicious.", "options": ["Cookies", "The cookies", "Some cookies", "Many cookies"], "correct": "The cookies", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Những chiếc bánh quy mà mẹ tớ tự tay chuẩn bị lúc nào cũng thơm ngon tuyệt vời.\"</p>\n    <div class=\"exp-section-title\">Phân tích từ vựng đáp án:</div>\n    <ul class=\"exp-list\"><li><b>Cookies</b></li><li><b>The cookies</b></li><li><b>Some cookies</b></li><li><b>Many cookies</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án đúng?</div>\n    <p style=\"margin:4px 0;\">Danh từ 'cookies' ở đây đã được xác định cụ thể bằng một mệnh đề quan hệ phía sau 'that my mother prepares' (những chiếc bánh mà CHÍNH MẸ TỚ chuẩn bị chứ không phải bánh bất kỳ) -> Bắt buộc phải có mạo từ xác định 'The' đứng trước.</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">Các phương án khác thiếu mạo từ 'The' nên không thể hiện được tính xác định cụ thể của danh từ trong ngữ cảnh này.</p>\n    "}, {"id": "ex3_57", "exercise": "Exercise 3", "question": "57. Would you like ______ slice of my pizza?", "options": ["a", "few", "any", "much"], "correct": "a", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Cậu có muốn ăn một lát bánh pizza của tớ không?\"</p>\n    <div class=\"exp-section-title\">Phân tích từ vựng đáp án:</div>\n    <ul class=\"exp-list\"><li><b>a</b></li><li><b>few</b></li><li><b>any</b></li><li><b>much</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án đúng?</div>\n    <p style=\"margin:4px 0;\">Danh từ 'slice' (lát, miếng bánh) là danh từ đếm được số ít và bắt đầu bằng một phụ âm (/s/). Do đó, ta dùng mạo từ 'a' mang nghĩa là một lát bánh.</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">few đi với từ số nhiều. any và much không phù hợp với lời mời một phần cụ thể đếm được số ít này.</p>\n    "}, {"id": "ex4_1", "exercise": "Exercise 4 (Từ Đồng Nghĩa - Closest Meaning)", "question": "1. The cold weather has made it <u>necessary</u> to protect the crops.", "options": ["popular", "essential", "incredible", "unbelievable"], "correct": "essential", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Thời tiết lạnh giá đã khiến cho việc bảo vệ mùa màng trở nên vô cùng cấp thiết/cần thiết.\"</p>\n    <div class=\"exp-section-title\">Phân tích ý nghĩa các đáp án phương án:</div>\n    <ul class=\"exp-list\"><li><b>popular</b></li><li><b>essential</b></li><li><b>incredible</b></li><li><b>unbelievable</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án này (Từ đồng nghĩa)?</div>\n    <p style=\"margin:4px 0;\">Từ gạch chân 'necessary' (tính từ) nghĩa là cần thiết, thiết yếu. Từ đồng nghĩa gần nhất là 'essential' (hoàn toàn cần thiết, cốt lõi, yếu lược).</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án khác không phù hợp?</div>\n    <p style=\"margin:4px 0;\">popular (phổ biến), incredible (đáng kinh ngạc), unbelievable (không thể tin được) đều mang tầng nghĩa hoàn toàn khác biệt.</p>\n    "}, {"id": "ex4_2", "exercise": "Exercise 4 (Từ Đồng Nghĩa - Closest Meaning)", "question": "2. Ha Long Bay has the nicest <u>scenery</u> in Viet Nam.", "options": ["landscape", "sights", "sightseeing", "country"], "correct": "landscape", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Vịnh Hạ Long có phong cảnh thiên nhiên tuyệt đẹp nhất tại Việt Nam.\"</p>\n    <div class=\"exp-section-title\">Phân tích ý nghĩa các đáp án phương án:</div>\n    <ul class=\"exp-list\"><li><b>landscape</b></li><li><b>sights</b></li><li><b>sightseeing</b></li><li><b>country</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án này (Từ đồng nghĩa)?</div>\n    <p style=\"margin:4px 0;\">Từ gạch chân 'scenery' (danh từ) nghĩa là phong cảnh tự nhiên. Từ đồng nghĩa hoàn toàn tương thích là 'landscape' (phong cảnh, cảnh quan đất đai).</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án khác không phù hợp?</div>\n    <p style=\"margin:4px 0;\">sights (các tầm nhìn/danh thắng cảnh cụ thể), sightseeing (việc đi tham quan - danh động từ), country (đất nước/vùng nông thôn) không đồng nghĩa khít với phong cảnh tự nhiên tổng thể.</p>\n    "}, {"id": "ex4_3", "exercise": "Exercise 4 (Từ Đồng Nghĩa - Closest Meaning)", "question": "3. Quang Ninh Province. It has <u>many</u> islands and caves.", "options": ["a few", "a little", "a lot of", "much"], "correct": "a lot of", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Tỉnh Quảng Ninh. Nơi đây sở hữu rất nhiều hòn đảo và hang động kỳ vĩ.\"</p>\n    <div class=\"exp-section-title\">Phân tích ý nghĩa các đáp án phương án:</div>\n    <ul class=\"exp-list\"><li><b>a few</b></li><li><b>a little</b></li><li><b>a lot of</b></li><li><b>much</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án này (Từ đồng nghĩa)?</div>\n    <p style=\"margin:4px 0;\">Từ gạch chân 'many' (từ định lượng) nghĩa là nhiều, đi với danh từ đếm được số nhiều. Từ có nghĩa tương đồng hoàn hảo trong câu khẳng định là 'a lot of' (rất nhiều).</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án khác không phù hợp?</div>\n    <p style=\"margin:4px 0;\">a few (một vài - số lượng ít), a little (một chút - đi với từ không đếm được), much (nhiều - chủ yếu dùng câu phủ định/nghi vấn hoặc từ không đếm được).</p>\n    "}, {"id": "ex4_4", "exercise": "Exercise 4 (Từ Đồng Nghĩa - Closest Meaning)", "question": "4. You can <u>enjoy</u> great Vietnamese seafood in Ha Long Bay.", "options": ["hate", "like", "dislike", "likes"], "correct": "like", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Bạn có thể thưởng thức và yêu thích những món hải sản Việt Nam tuyệt vời tại Vịnh Hạ Long.\"</p>\n    <div class=\"exp-section-title\">Phân tích ý nghĩa các đáp án phương án:</div>\n    <ul class=\"exp-list\"><li><b>hate</b></li><li><b>like</b></li><li><b>dislike</b></li><li><b>likes</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án này (Từ đồng nghĩa)?</div>\n    <p style=\"margin:4px 0;\">Động từ 'enjoy' mang ý nghĩa là tận hưởng, thưởng thức một cách thích thú, hài lòng. Từ có nét nghĩa gần gũi nhất trong các phương án là 'like' (yêu thích).</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án khác không phù hợp?</div>\n    <p style=\"margin:4px 0;\">hate (ghét), dislike (không thích) mang nghĩa trái ngược hoàn toàn. 'likes' sai ngữ pháp vì chủ ngữ là 'You' đi với động từ khuyết thiếu 'can' nên động từ theo sau phải nguyên mẫu không chia s.</p>\n    "}, {"id": "ex4_5", "exercise": "Exercise 4 (Từ Đồng Nghĩa - Closest Meaning)", "question": "5. In Ha Long Bay, some of the islands <u>resemble</u> people or animals.", "options": ["look up", "look like", "look after", "look for"], "correct": "look like", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Tại Vịnh Hạ Long, một vài hòn đảo có hình thù trông giống như con người hoặc các loài động vật.\"</p>\n    <div class=\"exp-section-title\">Phân tích ý nghĩa các đáp án phương án:</div>\n    <ul class=\"exp-list\"><li><b>look up</b></li><li><b>look like</b></li><li><b>look after</b></li><li><b>look for</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án này (Từ đồng nghĩa)?</div>\n    <p style=\"margin:4px 0;\">Động từ 'resemble' nghĩa là giống với, có vẻ ngoài tương đồng với ai/cái gì. Cụm phrasal verb đồng nghĩa chính xác là 'look like' (trông giống như).</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án khác không phù hợp?</div>\n    <p style=\"margin:4px 0;\">look up (tra cứu từ điển / ngước nhìn lên), look after (chăm sóc ai), look for (tìm kiếm vật gì) đều sai nghĩa hành động.</p>\n    "}, {"id": "ex5_1", "exercise": "Exercise 5 (Từ Trái Nghĩa - Opposite Meaning)", "question": "1. Doi Cave in Ca Mau is <u>famous</u> for a very special species of bat.", "options": ["unknown", "well-known", "renowned", "notorious"], "correct": "unknown", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Hang Dơi ở Cà Mau cực kỳ nổi tiếng về một loài dơi vô cùng đặc biệt.\"</p>\n    <div class=\"exp-section-title\">Phân tích ý nghĩa các đáp án phương án:</div>\n    <ul class=\"exp-list\"><li><b>unknown</b></li><li><b>well-known</b></li><li><b>renowned</b></li><li><b>notorious</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án này (Từ trái nghĩa)?</div>\n    <p style=\"margin:4px 0;\">Từ gạch chân 'famous' (tính từ) nghĩa là nổi tiếng, được nhiều người biết đến. Từ có nghĩa trái ngược (OPPOSITE) hoàn toàn là 'unknown' (vô danh, không ai biết đến).</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án khác không phù hợp?</div>\n    <p style=\"margin:4px 0;\">well-known và renowned là từ đồng nghĩa với famous. notorious nghĩa là tai tiếng (nổi tiếng vì thói xấu - không phải từ trái nghĩa khách quan của sự nổi tiếng tổng quát).</p>\n    "}, {"id": "ex5_2", "exercise": "Exercise 5 (Từ Trái Nghĩa - Opposite Meaning)", "question": "2. Visitors can see <u>spectacular</u> scenery at the falls.", "options": ["magnificent", "fantastic", "unimpressive", "wonderful"], "correct": "unimpressive", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Du khách có thể chiêm ngưỡng phong cảnh hùng vĩ, ngoạn mục ngay tại thác nước.\"</p>\n    <div class=\"exp-section-title\">Phân tích ý nghĩa các đáp án phương án:</div>\n    <ul class=\"exp-list\"><li><b>magnificent</b></li><li><b>fantastic</b></li><li><b>unimpressive</b></li><li><b>wonderful</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án này (Từ trái nghĩa)?</div>\n    <p style=\"margin:4px 0;\">Từ gạch chân 'spectacular' (tính từ) nghĩa là hùng vĩ, ngoạn mục, tạo ấn tượng mạnh mẽ cho người xem. Từ trái nghĩa lý tưởng là 'unimpressive' (tầm thường, không có gì ấn tượng, nhạt nhòa).</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án khác không phù hợp?</div>\n    <p style=\"margin:4px 0;\">magnificent (tráng lệ), fantastic (tuyệt diệu), wonderful (tuyệt vời) đều là các từ đồng nghĩa cùng chiều tích cực với spectacular.</p>\n    "}, {"id": "ex5_3", "exercise": "Exercise 5 (Từ Trái Nghĩa - Opposite Meaning)", "question": "3. Food in this country is getting very <u>expensive</u>.", "options": ["fresh", "rare", "overpriced", "cheap"], "correct": "cheap", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Đồ ăn thức uống ở quốc gia này đang ngày càng trở nên vô cùng đắt đỏ.\"</p>\n    <div class=\"exp-section-title\">Phân tích ý nghĩa các đáp án phương án:</div>\n    <ul class=\"exp-list\"><li><b>fresh</b></li><li><b>rare</b></li><li><b>overpriced</b></li><li><b>cheap</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án này (Từ trái nghĩa)?</div>\n    <p style=\"margin:4px 0;\">Từ gạch chân 'expensive' (tính từ) mang ý nghĩa giá cao, đắt tiền. Từ trái nghĩa trực diện quen thuộc là 'cheap' (rẻ tiền, giá thấp).</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án khác không phù hợp?</div>\n    <p style=\"margin:4px 0;\">fresh (tươi ngon), rare (hiếm có), overpriced (quá đắt - từ đồng nghĩa) không mang nét nghĩa trái ngược với đắt đỏ.</p>\n    "}, {"id": "ex5_4", "exercise": "Exercise 5 (Từ Trái Nghĩa - Opposite Meaning)", "question": "4. My computer is noticeably <u>slower</u> than before.", "options": ["faster", "lower", "shorter", "higher"], "correct": "faster", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Chiếc máy tính của tớ chạy chậm hơn một cách rõ rệt so với khoảng thời gian trước đây.\"</p>\n    <div class=\"exp-section-title\">Phân tích ý nghĩa các đáp án phương án:</div>\n    <ul class=\"exp-list\"><li><b>faster</b></li><li><b>lower</b></li><li><b>shorter</b></li><li><b>higher</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án này (Từ trái nghĩa)?</div>\n    <p style=\"margin:4px 0;\">Từ gạch chân 'slower' (tính từ so sánh hơn) nghĩa là chậm chạp hơn. Từ có nghĩa trái ngược trực tiếp về mặt tốc độ vận hành là 'faster' (nhanh hơn).</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án khác không phù hợp?</div>\n    <p style=\"margin:4px 0;\">lower (thấp hơn), shorter (ngắn hơn), higher (cao hơn) dùng cho kích thước, khoảng cách hoặc vị trí không gian, không chỉ tốc độ máy tính.</p>\n    "}, {"id": "ex5_5", "exercise": "Exercise 5 (Từ Trái Nghĩa - Opposite Meaning)", "question": "5. The Sahara is the <u>hottest</u> desert in the world.", "options": ["colder", "coldest", "cooler", "cold"], "correct": "coldest", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Sa mạc Sahara là sa mạc nóng nhất trên phạm vi toàn thế giới.\"</p>\n    <div class=\"exp-section-title\">Phân tích ý nghĩa các đáp án phương án:</div>\n    <ul class=\"exp-list\"><li><b>colder</b></li><li><b>coldest</b></li><li><b>cooler</b></li><li><b>cold</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn đáp án này (Từ trái nghĩa)?</div>\n    <p style=\"margin:4px 0;\">Từ gạch chân 'hottest' (tính từ so sánh nhất) nghĩa là nóng nực nhất. Từ trái nghĩa tương thích bắt buộc phải ở cùng dạng thức CẤP SO SÁNH NHẤT, đó là 'coldest' (lạnh giá nhất).</p>\n    <div class=\"exp-section-title\">Tại sao các đáp án khác không phù hợp?</div>\n    <p style=\"margin:4px 0;\">colder (so sánh hơn), cooler (mát mẻ hơn - so sánh hơn), cold (tính từ nguyên mẫu) đều sai dạng thức so sánh nhất cần có để đối ứng ngữ pháp hoàn chỉnh.</p>\n    "}, {"id": "ex6_1", "exercise": "Exercise 6 (Điền must / mustn't)", "question": "1. You ______ pick up flowers or break tree branches.", "options": ["must", "mustn't"], "correct": "mustn't", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi hoàn chỉnh:</div>\n    <p style=\"margin:4px 0;\">\"Con không được phép hái hoa hay bẻ các cành cây hoang dã.\"</p>\n    <div class=\"exp-section-title\">Phân tích ngữ pháp đáp án:</div>\n    <ul class=\"exp-list\">\n        <li><b>A. must:</b> Diễn tả sự bắt buộc, nghĩa vụ cần thiết phải thực hiện từ phía người nói hoặc quy luật tất yếu.</li>\n        <li><b>B. mustn't:</b> Diễn tả sự cấm đoán, tuyệt đối không được phép thực hiện hành động vì vi phạm nội quy, pháp luật hoặc gây hiểm họa.</li>\n    </ul>\n    <div class=\"exp-section-title\">Tại sao chọn mustn't?</div>\n    <p style=\"margin:4px 0;\">Hành động hái hoa, bẻ cành phá hoại cảnh quan môi trường công cộng là hành vi bị cấm đoán nghiêm ngặt -> Dùng động từ khuyết thiếu cấm đoán 'mustn't'.</p>\n    "}, {"id": "ex6_2", "exercise": "Exercise 6 (Điền must / mustn't)", "question": "2. I can't go to the movie tonight because I ______ study for final exams.", "options": ["must", "mustn't"], "correct": "must", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi hoàn chỉnh:</div>\n    <p style=\"margin:4px 0;\">\"Tối nay tớ không thể đi xem phim được bởi vì tớ bắt buộc phải tập trung ôn thi học kỳ.\"</p>\n    <div class=\"exp-section-title\">Phân tích ngữ pháp đáp án:</div>\n    <ul class=\"exp-list\">\n        <li><b>A. must:</b> Diễn tả sự bắt buộc, nghĩa vụ cần thiết phải thực hiện từ phía người nói hoặc quy luật tất yếu.</li>\n        <li><b>B. mustn't:</b> Diễn tả sự cấm đoán, tuyệt đối không được phép thực hiện hành động vì vi phạm nội quy, pháp luật hoặc gây hiểm họa.</li>\n    </ul>\n    <div class=\"exp-section-title\">Tại sao chọn must?</div>\n    <p style=\"margin:4px 0;\">Việc học tập chuẩn bị cho kỳ thi cuối kỳ là bổn phận, trách nhiệm bắt buộc cần ưu tiên hàng đầu -> Dùng động từ khuyết thiếu chỉ sự bắt buộc nội tại 'must'.</p>\n    "}, {"id": "ex6_3", "exercise": "Exercise 6 (Điền must / mustn't)", "question": "3. The soup is too hot. You ______ eat it yet. Wait for it to cool.", "options": ["must", "mustn't"], "correct": "mustn't", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi hoàn chỉnh:</div>\n    <p style=\"margin:4px 0;\">\"Món canh này đang còn quá nóng. Con không được ăn nó ngay lúc này đâu nhé. Hãy đợi cho nó nguội bớt đã.\"</p>\n    <div class=\"exp-section-title\">Phân tích ngữ pháp đáp án:</div>\n    <ul class=\"exp-list\">\n        <li><b>A. must:</b> Diễn tả sự bắt buộc, nghĩa vụ cần thiết phải thực hiện từ phía người nói hoặc quy luật tất yếu.</li>\n        <li><b>B. mustn't:</b> Diễn tả sự cấm đoán, tuyệt đối không được phép thực hiện hành động vì vi phạm nội quy, pháp luật hoặc gây hiểm họa.</li>\n    </ul>\n    <div class=\"exp-section-title\">Tại sao chọn mustn't?</div>\n    <p style=\"margin:4px 0;\">Ăn canh nóng bỏng có thể gây tổn thương bỏng lưỡi, đây là một lời dặn cấm đoán hành động tạm thời nguy hiểm -> Dùng 'mustn't'.</p>\n    "}, {"id": "ex6_4", "exercise": "Exercise 6 (Điền must / mustn't)", "question": "4. To stay alive, people ______ breathe oxygen.", "options": ["must", "mustn't"], "correct": "must", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi hoàn chỉnh:</div>\n    <p style=\"margin:4px 0;\">\"Để duy trì sự sống, con người bắt buộc phải hít thở khí ô-xy.\"</p>\n    <div class=\"exp-section-title\">Phân tích ngữ pháp đáp án:</div>\n    <ul class=\"exp-list\">\n        <li><b>A. must:</b> Diễn tả sự bắt buộc, nghĩa vụ cần thiết phải thực hiện từ phía người nói hoặc quy luật tất yếu.</li>\n        <li><b>B. mustn't:</b> Diễn tả sự cấm đoán, tuyệt đối không được phép thực hiện hành động vì vi phạm nội quy, pháp luật hoặc gây hiểm họa.</li>\n    </ul>\n    <div class=\"exp-section-title\">Tại sao chọn must?</div>\n    <p style=\"margin:4px 0;\">Đây là một tất yếu sinh học bắt buộc không thể thay thế để duy trì sự sống của loài người -> Dùng động từ chỉ sự bắt buộc hiển nhiên 'must'.</p>\n    "}, {"id": "ex6_5", "exercise": "Exercise 6 (Điền must / mustn't)", "question": "5. You ______ start a fire when you go camping in the forest.", "options": ["must", "mustn't"], "correct": "mustn't", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi hoàn chỉnh:</div>\n    <p style=\"margin:4px 0;\">\"Con tuyệt đối không được tự ý đốt lửa phóng hỏa khi đi cắm trại trong khu rừng sâu.\"</p>\n    <div class=\"exp-section-title\">Phân tích ngữ pháp đáp án:</div>\n    <ul class=\"exp-list\">\n        <li><b>A. must:</b> Diễn tả sự bắt buộc, nghĩa vụ cần thiết phải thực hiện từ phía người nói hoặc quy luật tất yếu.</li>\n        <li><b>B. mustn't:</b> Diễn tả sự cấm đoán, tuyệt đối không được phép thực hiện hành động vì vi phạm nội quy, pháp luật hoặc gây hiểm họa.</li>\n    </ul>\n    <div class=\"exp-section-title\">Tại sao chọn mustn't?</div>\n    <p style=\"margin:4px 0;\">Đốt lửa trong rừng rất dễ gây ra thảm họa cháy rừng, nguy hiểm cho tự nhiên, là hành vi bị nghiêm cấm pháp luật -> Dùng 'mustn't'.</p>\n    "}, {"id": "ex6_6", "exercise": "Exercise 6 (Điền must / mustn't)", "question": "6. You ______ put litter in a trash can.", "options": ["must", "mustn't"], "correct": "must", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi hoàn chỉnh:</div>\n    <p style=\"margin:4px 0;\">\"Con bắt buộc phải vứt rác thải vào đúng nơi quy định là thùng rác.\"</p>\n    <div class=\"exp-section-title\">Phân tích ngữ pháp đáp án:</div>\n    <ul class=\"exp-list\">\n        <li><b>A. must:</b> Diễn tả sự bắt buộc, nghĩa vụ cần thiết phải thực hiện từ phía người nói hoặc quy luật tất yếu.</li>\n        <li><b>B. mustn't:</b> Diễn tả sự cấm đoán, tuyệt đối không được phép thực hiện hành động vì vi phạm nội quy, pháp luật hoặc gây hiểm họa.</li>\n    </ul>\n    <div class=\"exp-section-title\">Tại sao chọn must?</div>\n    <p style=\"margin:4px 0;\">Đây là quy định văn minh công cộng giữ gìn vệ sinh chung mà mọi công dân nhỏ tuổi đều phải tuân theo -> Dùng hành động bắt buộc nghĩa vụ 'must'.</p>\n    "}, {"id": "ex6_7", "exercise": "Exercise 6 (Điền must / mustn't)", "question": "7. If you want to travel to certain countries, you ______ get a visa.", "options": ["must", "mustn't"], "correct": "must", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi hoàn chỉnh:</div>\n    <p style=\"margin:4px 0;\">\"Nếu bạn muốn đi du lịch tới một số quốc gia đặc thù, bạn bắt buộc phải xin được thị thực (thẻ visa).\"</p>\n    <div class=\"exp-section-title\">Phân tích ngữ pháp đáp án:</div>\n    <ul class=\"exp-list\">\n        <li><b>A. must:</b> Diễn tả sự bắt buộc, nghĩa vụ cần thiết phải thực hiện từ phía người nói hoặc quy luật tất yếu.</li>\n        <li><b>B. mustn't:</b> Diễn tả sự cấm đoán, tuyệt đối không được phép thực hiện hành động vì vi phạm nội quy, pháp luật hoặc gây hiểm họa.</li>\n    </ul>\n    <div class=\"exp-section-title\">Tại sao chọn must?</div>\n    <p style=\"margin:4px 0;\">Thị thực nhập cảnh là quy định bắt buộc mang tính pháp lý ngoại giao giữa các quốc gia để được qua cửa khẩu biên giới -> Dùng 'must'.</p>\n    "}, {"id": "ex6_8", "exercise": "Exercise 6 (Điền must / mustn't)", "question": "8. You ______ swim under the waterfall. It’s dangerous.", "options": ["must", "mustn't"], "correct": "mustn't", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi hoàn chỉnh:</div>\n    <p style=\"margin:4px 0;\">\"Các con không được phép bơi lội ở ngay phía dưới dòng thác nước đổ. Nơi đó rất nguy hiểm.\"</p>\n    <div class=\"exp-section-title\">Phân tích ngữ pháp đáp án:</div>\n    <ul class=\"exp-list\">\n        <li><b>A. must:</b> Diễn tả sự bắt buộc, nghĩa vụ cần thiết phải thực hiện từ phía người nói hoặc quy luật tất yếu.</li>\n        <li><b>B. mustn't:</b> Diễn tả sự cấm đoán, tuyệt đối không được phép thực hiện hành động vì vi phạm nội quy, pháp luật hoặc gây hiểm họa.</li>\n    </ul>\n    <div class=\"exp-section-title\">Tại sao chọn mustn't?</div>\n    <p style=\"margin:4px 0;\">Manh mối nằm ở câu cảnh báo hiểm họa mạng sống 'It’s dangerous'. Bơi dưới thác nước xiết cực kỳ dễ tai nạn nên đây là một lệnh cấm -> Dùng 'mustn't'.</p>\n    "}, {"id": "ex6_9", "exercise": "Exercise 6 (Điền must / mustn't)", "question": "9. You ______ follow your tour guide to be safe.", "options": ["must", "mustn't"], "correct": "must", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi hoàn chỉnh:</div>\n    <p style=\"margin:4px 0;\">\"Con bắt buộc phải đi theo sát và tuân thủ hướng dẫn viên du lịch để đảm bảo an toàn tuyệt đối.\"</p>\n    <div class=\"exp-section-title\">Phân tích ngữ pháp đáp án:</div>\n    <ul class=\"exp-list\">\n        <li><b>A. must:</b> Diễn tả sự bắt buộc, nghĩa vụ cần thiết phải thực hiện từ phía người nói hoặc quy luật tất yếu.</li>\n        <li><b>B. mustn't:</b> Diễn tả sự cấm đoán, tuyệt đối không được phép thực hiện hành động vì vi phạm nội quy, pháp luật hoặc gây hiểm họa.</li>\n    </ul>\n    <div class=\"exp-section-title\">Tại sao chọn must?</div>\n    <p style=\"margin:4px 0;\">Đi theo người dẫn đường là nguyên tắc an toàn bắt buộc cho mọi hành trình dã ngoại, tránh việc bị lạc đường nguy hiểm -> Dùng 'must'.</p>\n    "}, {"id": "ex6_10", "exercise": "Exercise 6 (Điền must / mustn't)", "question": "10. When the phone rings, you ______ answer it. It's an important call.", "options": ["must", "mustn't"], "correct": "must", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi hoàn chỉnh:</div>\n    <p style=\"margin:4px 0;\">\"Khi điện thoại đổ chuông kêu, con phải nhấc máy trả lời ngay nhé. Đó là một cuộc gọi vô cùng quan trọng đấy.\"</p>\n    <div class=\"exp-section-title\">Phân tích ngữ pháp đáp án:</div>\n    <ul class=\"exp-list\">\n        <li><b>A. must:</b> Diễn tả sự bắt buộc, nghĩa vụ cần thiết phải thực hiện từ phía người nói hoặc quy luật tất yếu.</li>\n        <li><b>B. mustn't:</b> Diễn tả sự cấm đoán, tuyệt đối không được phép thực hiện hành động vì vi phạm nội quy, pháp luật hoặc gây hiểm họa.</li>\n    </ul>\n    <div class=\"exp-section-title\">Tại sao chọn must?</div>\n    <p style=\"margin:4px 0;\">Vì tính chất khẩn cấp và cốt lõi của cuộc gọi 'important call', hành động nghe máy trở thành một yêu cầu bắt buộc thực hiện -> Dùng 'must'.</p>\n    "}, {"id": "ex6_11", "exercise": "Exercise 6 (Điền must / mustn't)", "question": "11. If you have an aquarium, you ______ give your tropical fish too much food or they'll die.", "options": ["must", "mustn't"], "correct": "mustn't", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi hoàn chỉnh:</div>\n    <p style=\"margin:4px 0;\">\"Nếu nhà con có một bể cá cảnh, con không được cho loài cá nhiệt đới ăn quá nhiều thức ăn nếu không chúng sẽ bị chết chướng bụng đấy.\"</p>\n    <div class=\"exp-section-title\">Phân tích ngữ pháp đáp án:</div>\n    <ul class=\"exp-list\">\n        <li><b>A. must:</b> Diễn tả sự bắt buộc, nghĩa vụ cần thiết phải thực hiện từ phía người nói hoặc quy luật tất yếu.</li>\n        <li><b>B. mustn't:</b> Diễn tả sự cấm đoán, tuyệt đối không được phép thực hiện hành động vì vi phạm nội quy, pháp luật hoặc gây hiểm họa.</li>\n    </ul>\n    <div class=\"exp-section-title\">Tại sao chọn mustn't?</div>\n    <p style=\"margin:4px 0;\">Cho cá ăn quá lượng thức ăn sẽ gây ô nhiễm nước và làm chết cá, đây là hành vi cần ngăn cấm tuyệt đối trong việc nuôi thú cưng -> Dùng 'mustn't'.</p>\n    "}, {"id": "ex6_12", "exercise": "Exercise 6 (Điền must / mustn't)", "question": "12. To be a successful climber, you ______ have a great deal of stamina.", "options": ["must", "mustn't"], "correct": "must", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi hoàn chỉnh:</div>\n    <p style=\"margin:4px 0;\">\"Để trở thành một vận động viên leo núi thành công, con bắt buộc phải có một thể lực bền bỉ, kiên cường.\"</p>\n    <div class=\"exp-section-title\">Phân tích ngữ pháp đáp án:</div>\n    <ul class=\"exp-list\">\n        <li><b>A. must:</b> Diễn tả sự bắt buộc, nghĩa vụ cần thiết phải thực hiện từ phía người nói hoặc quy luật tất yếu.</li>\n        <li><b>B. mustn't:</b> Diễn tả sự cấm đoán, tuyệt đối không được phép thực hiện hành động vì vi phạm nội quy, pháp luật hoặc gây hiểm họa.</li>\n    </ul>\n    <div class=\"exp-section-title\">Tại sao chọn must?</div>\n    <p style=\"margin:4px 0;\">Thể lực bền bỉ (stamina) là yếu tố bắt buộc tiên quyết, không thể thiếu để chinh phục các đỉnh núi cao nguy hiểm -> Dùng 'must'.</p>\n    "}, {"id": "ex6_13", "exercise": "Exercise 6 (Điền must / mustn't)", "question": "13. You ______ play loud music late at night. The neighbours will call the police.", "options": ["must", "mustn't"], "correct": "mustn't", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi hoàn chỉnh:</div>\n    <p style=\"margin:4px 0;\">\"Các bạn không được phép mở nhạc quá lớn vào ban đêm muộn. Hàng xóm xung quanh sẽ gọi cảnh sát tới đấy.\"</p>\n    <div class=\"exp-section-title\">Phân tích ngữ pháp đáp án:</div>\n    <ul class=\"exp-list\">\n        <li><b>A. must:</b> Diễn tả sự bắt buộc, nghĩa vụ cần thiết phải thực hiện từ phía người nói hoặc quy luật tất yếu.</li>\n        <li><b>B. mustn't:</b> Diễn tả sự cấm đoán, tuyệt đối không được phép thực hiện hành động vì vi phạm nội quy, pháp luật hoặc gây hiểm họa.</li>\n    </ul>\n    <div class=\"exp-section-title\">Tại sao chọn mustn't?</div>\n    <p style=\"margin:4px 0;\">Mở nhạc to đêm khuya gây mất trật tự an ninh xã hội, vi phạm quy định pháp luật khu dân cư -> Lệnh cấm hành vi dùng 'mustn't'.</p>\n    "}, {"id": "ex6_14", "exercise": "Exercise 6 (Điền must / mustn't)", "question": "14. When you first meet someone, you ______ ask personal questions. For example, it's not polite to ask a person's age.", "options": ["must", "mustn't"], "correct": "mustn't", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi hoàn chỉnh:</div>\n    <p style=\"margin:4px 0;\">\"Khi lần đầu tiên con gặp gỡ một ai đó, con không nên/không được phép hỏi những câu hỏi quá mang tính riêng tư. Ví dụ, việc hỏi tuổi tác của một người là hành vi thiếu lịch sự.\"</p>\n    <div class=\"exp-section-title\">Phân tích ngữ pháp đáp án:</div>\n    <ul class=\"exp-list\">\n        <li><b>A. must:</b> Diễn tả sự bắt buộc, nghĩa vụ cần thiết phải thực hiện từ phía người nói hoặc quy luật tất yếu.</li>\n        <li><b>B. mustn't:</b> Diễn tả sự cấm đoán, tuyệt đối không được phép thực hiện hành động vì vi phạm nội quy, pháp luật hoặc gây hiểm họa.</li>\n    </ul>\n    <div class=\"exp-section-title\">Tại sao chọn mustn't?</div>\n    <p style=\"margin:4px 0;\">Hỏi tuổi hay đời tư lúc mới gặp là điều cấm kỵ trong quy tắc ứng xử giao tiếp văn minh lịch thiệp tiếng Anh -> Dùng tính chất ngăn cấm 'mustn't'.</p>\n    "}, {"id": "ex6_15", "exercise": "Exercise 6 (Điền must / mustn't)", "question": "15. Everyone here ______ leave immediately! The building is on fire.", "options": ["must", "mustn't"], "correct": "must", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi hoàn chỉnh:</div>\n    <p style=\"margin:4px 0;\">\"Tất cả mọi người ở đây bắt buộc phải sơ tán, rời đi ngay lập tức! Tòa nhà này đang bị hỏa hoạn bốc cháy.\"</p>\n    <div class=\"exp-section-title\">Phân tích ngữ pháp đáp án:</div>\n    <ul class=\"exp-list\">\n        <li><b>A. must:</b> Diễn tả sự bắt buộc, nghĩa vụ cần thiết phải thực hiện từ phía người nói hoặc quy luật tất yếu.</li>\n        <li><b>B. mustn't:</b> Diễn tả sự cấm đoán, tuyệt đối không được phép thực hiện hành động vì vi phạm nội quy, pháp luật hoặc gây hiểm họa.</li>\n    </ul>\n    <div class=\"exp-section-title\">Tại sao chọn must?</div>\n    <p style=\"margin:4px 0;\">Tòa nhà đang cháy ('building is on fire') là tình huống khẩn cấp đe dọa trực tiếp tính mạng con người, hành động sơ tán là bắt buộc sinh tử tối cao -> Dùng 'must'.</p>\n    "}, {"id": "ex7_1", "exercise": "Exercise 7 (Chia Dạng Đúng Của Từ - Word Forms)", "question": "1. A trip to Fansipan is an ______ experience. (forget)", "options": ["forget", "unforgettable", "forgetful", "forgetting"], "correct": "unforgettable", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Một chuyến hành trình đi du lịch đến đỉnh núi Fansipan là một trải nghiệm không bao giờ quên được.\"</p>\n    <div class=\"exp-section-title\">Phân tích các dạng thức biến đổi từ loại (Word Forms):</div>\n    <ul class=\"exp-list\"><li><b>forget</b></li><li><b>unforgettable</b></li><li><b>forgetful</b></li><li><b>forgetting</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn cấu trúc dạng từ này?</div>\n    <p style=\"margin:4px 0;\">Vị trí chỗ trống đứng trước danh từ 'experience' (trải nghiệm) và đứng sau mạo từ 'an'. Ta cần điền một TÍNH TỪ mang nghĩa tích cực để miêu tả giá trị kỷ niệm sâu sắc của chuyến đi, chọn từ 'unforgettable' (đáng nhớ, không thể nào quên).</p>\n    <div class=\"exp-section-title\">Tại sao các dạng từ còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">forget (động từ), forgetful (tính từ hay quên - chỉ đặc tính trí nhớ kém của con người), forgetting (dạng danh động từ/phân từ) đều hoàn toàn sai ngữ cảnh ý nghĩa bài toán.</p>\n    "}, {"id": "ex7_2", "exercise": "Exercise 7 (Chia Dạng Đúng Của Từ - Word Forms)", "question": "2. You can watch ______ dances when you visit Sa Pa. (tradition)", "options": ["tradition", "traditional", "traditionally", "traditions"], "correct": "traditional", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Bạn có thể thưởng thức những điệu múa mang đậm bản sắc truyền thống khi bạn đến tham quan Sa Pa.\"</p>\n    <div class=\"exp-section-title\">Phân tích các dạng thức biến đổi từ loại (Word Forms):</div>\n    <ul class=\"exp-list\"><li><b>tradition</b></li><li><b>traditional</b></li><li><b>traditionally</b></li><li><b>traditions</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn cấu trúc dạng từ này?</div>\n    <p style=\"margin:4px 0;\">Chỗ trống đứng ngay trước danh từ số nhiều 'dances' (các điệu nhảy/điệu múa). Ta cần bổ sung một TÍNH TỪ (Adjective) đứng trước danh từ để bổ nghĩa trực tiếp tính chất cho nó. Tính từ của danh từ 'tradition' chính là từ 'traditional' (thuộc về truyền thống).</p>\n    <div class=\"exp-section-title\">Tại sao các dạng từ còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">tradition (danh từ), traditionally (trạng từ), traditions (danh từ số nhiều) đều sai quy tắc kết cấu trật tự từ loại trước danh từ.</p>\n    "}, {"id": "ex7_3", "exercise": "Exercise 7 (Chia Dạng Đúng Của Từ - Word Forms)", "question": "3. Many visitors think that the greatest ______ in Hue is temples. (attract)", "options": ["attract", "attraction", "attractive", "attractively"], "correct": "attraction", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Rất nhiều du khách nghĩ rằng địa điểm thu hút, hấp dẫn lớn nhất ở xứ Huế mộng mơ chính là các ngôi đền cổ kính.\"</p>\n    <div class=\"exp-section-title\">Phân tích các dạng thức biến đổi từ loại (Word Forms):</div>\n    <ul class=\"exp-list\"><li><b>attract</b></li><li><b>attraction</b></li><li><b>attractive</b></li><li><b>attractively</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn cấu trúc dạng từ này?</div>\n    <p style=\"margin:4px 0;\">Vị trí đứng sau tính từ so sánh hơn nhất 'the greatest'. Ta bắt buộc phải điền một DANH TỪ (Noun) đóng vai trò làm trung tâm chủ ngữ của mệnh đề phụ. Từ gốc là động từ 'attract', danh từ chỉ điểm tham quan cuốn hút là 'attraction'.</p>\n    <div class=\"exp-section-title\">Tại sao các dạng từ còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">attract (động từ), attractive (tính từ), attractively (trạng từ) không thỏa mãn cấu trúc từ loại sau tính từ so sánh hơn nhất.</p>\n    "}, {"id": "ex7_4", "exercise": "Exercise 7 (Chia Dạng Đúng Của Từ - Word Forms)", "question": "4. You must take an umbrella because it's ______ time of year. (rain)", "options": ["rain", "rainy", "raining", "rainless"], "correct": "rainy", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Con bắt buộc phải mang theo một chiếc ô bởi vì đây là khoảng thời gian mưa nhiều nhất trong năm tại nơi này.\"</p>\n    <div class=\"exp-section-title\">Phân tích các dạng thức biến đổi từ loại (Word Forms):</div>\n    <ul class=\"exp-list\"><li><b>rain</b></li><li><b>rainy</b></li><li><b>raining</b></li><li><b>rainless</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn cấu trúc dạng từ này?</div>\n    <p style=\"margin:4px 0;\">Đứng trước danh từ 'time' bổ nghĩa tính chất thời tiết mùa màng, ta cần một TÍNH TỪ chỉ thời tiết mưa gió. Tính từ phát sinh từ danh từ 'rain' là 'rainy'. Cụm từ 'rainy time' chỉ mùa mưa.</p>\n    <div class=\"exp-section-title\">Tại sao các dạng từ còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">rain (danh từ/động từ), raining (động từ chia tinh giản), rainless (tính từ không mưa - mâu thuẫn với yêu cầu mang ô 'take an umbrella').</p>\n    "}, {"id": "ex7_5", "exercise": "Exercise 7 (Chia Dạng Đúng Của Từ - Word Forms)", "question": "5. Hue is near Da Nang, but it's more ______ than Da Nang. (interest)", "options": ["interest", "interested", "interesting", "interestingly"], "correct": "interesting", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Huế nằm ở vị trí khá gần Đà Nẵng, nhưng thành phố này mang nét đẹp thú vị, hấp dẫn hơn nhiều so với Đà Nẵng.\"</p>\n    <div class=\"exp-section-title\">Phân tích các dạng thức biến đổi từ loại (Word Forms):</div>\n    <ul class=\"exp-list\"><li><b>interest</b></li><li><b>interested</b></li><li><b>interesting</b></li><li><b>interestingly</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn cấu trúc dạng từ này?</div>\n    <p style=\"margin:4px 0;\">Cấu trúc câu so sánh hơn với tính từ dài: [S + To-be + more + Tính từ dài + than]. Để miêu tả đặc tính, bản chất cuốn hút hấp dẫn khách quan của thực thể địa danh (thành phố Huế), ta dùng tính từ đuôi -ing: 'interesting'.</p>\n    <div class=\"exp-section-title\">Tại sao các dạng từ còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">interest (danh từ/động từ), interested (tính từ đuôi -ed chỉ cảm xúc chủ quan của con người - địa danh không tự cảm nhận cảm xúc được), interestingly (trạng từ) đều vi phạm cấu trúc.</p>\n    "}, {"id": "ex7_6", "exercise": "Exercise 7 (Chia Dạng Đúng Của Từ - Word Forms)", "question": "6. The Perfume River is the most ______ river in Central Vietnam. (fame)", "options": ["fame", "famously", "famous", "famousness"], "correct": "famous", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Sông Hương là dòng sông nổi tiếng nhất ở khu vực miền Trung Việt Nam.\"</p>\n    <div class=\"exp-section-title\">Phân tích các dạng thức biến đổi từ loại (Word Forms):</div>\n    <ul class=\"exp-list\"><li><b>fame</b></li><li><b>famously</b></li><li><b>famous</b></li><li><b>famousness</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn cấu trúc dạng từ này?</div>\n    <p style=\"margin:4px 0;\">Vị trí đứng sau cấu trúc so sánh hơn nhất 'the most' và đứng trước danh từ 'river'. Vị trí này yêu cầu một TÍNH TỪ dài để tạo lập cấu trúc so sánh hơn nhất hoàn chỉnh bổ nghĩa cho danh từ sông. Tính từ của danh từ 'fame' (danh tiếng) là từ 'famous' (nổi tiếng).</p>\n    <div class=\"exp-section-title\">Tại sao các dạng từ còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">fame (danh từ), famously (trạng từ), famousness (danh từ sự nổi tiếng) đều không thể dùng đặt vào cấu trúc so sánh hơn nhất của tính từ.</p>\n    "}, {"id": "ex7_7", "exercise": "Exercise 7 (Chia Dạng Đúng Của Từ - Word Forms)", "question": "7. You can join many exciting ______ during the festival. (act)", "options": ["acts", "action", "activities", "active"], "correct": "activities", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Bạn có thể trực tiếp tham gia vào rất nhiều hoạt động vô cùng sôi nổi và thú vị suốt thời gian diễn ra lễ hội.\"</p>\n    <div class=\"exp-section-title\">Phân tích các dạng thức biến đổi từ loại (Word Forms):</div>\n    <ul class=\"exp-list\"><li><b>acts</b></li><li><b>action</b></li><li><b>activities</b></li><li><b>active</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn cấu trúc dạng từ này?</div>\n    <p style=\"margin:4px 0;\">Đứng sau tính từ định lượng chỉ số lượng nhiều 'many' và tính từ 'exciting', ta bắt buộc phải điền một DANH TỪ SỐ NHIỀU ĐẾM ĐƯỢC. Từ gốc là 'act', danh từ chỉ các hoạt động thể chất, vui chơi giải trí cộng đồng số nhiều là 'activities'.</p>\n    <div class=\"exp-section-title\">Tại sao các dạng từ còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">acts (các màn biểu diễn sân khấu đơn lẻ), action (hành động phim ảnh/vũ lực), active (tính từ năng động) đều không mang nét nghĩa phù hợp bối cảnh lễ hội quần chúng.</p>\n    "}, {"id": "ex7_8", "exercise": "Exercise 7 (Chia Dạng Đúng Của Từ - Word Forms)", "question": "8. A butterfly is more ______ than a moth. (colour)", "options": ["colour", "coloured", "colourful", "colourless"], "correct": "colourful", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Một chú bướm xinh đẹp thì luôn luôn có nhiều màu sắc sặc sỡ, rực rỡ hơn là một chú bướm đêm (con ngài).\"</p>\n    <div class=\"exp-section-title\">Phân tích các dạng thức biến đổi từ loại (Word Forms):</div>\n    <ul class=\"exp-list\"><li><b>colour</b></li><li><b>coloured</b></li><li><b>colourful</b></li><li><b>colourless</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn cấu trúc dạng từ này?</div>\n    <p style=\"margin:4px 0;\">Cấu trúc so sánh hơn [more + tính từ dài + than]. Ta cần tìm tính từ của danh từ 'colour' để mô tả sự đa sắc, rực rỡ sắc màu của con bướm, đó chính là từ 'colourful' (sặc sỡ, nhiều màu sắc).</p>\n    <div class=\"exp-section-title\">Tại sao các dạng từ còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">colour (danh từ màu sắc), coloured (được nhuộm màu), colourless (không có màu sắc, nhạt nhẽo - ngược nghĩa thực tế của loài bướm).</p>\n    "}, {"id": "ex7_9", "exercise": "Exercise 7 (Chia Dạng Đúng Của Từ - Word Forms)", "question": "9. Nam's brother is a ______. He took that picture about the cruise. (photograph)", "options": ["photograph", "photography", "photographer", "photographic"], "correct": "photographer", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Anh trai của bạn Nam là một nhiếp ảnh gia chuyên nghiệp. Anh ấy chính là người đã chụp bức ảnh tuyệt đẹp kia về chuyến du thuyền.\"</p>\n    <div class=\"exp-section-title\">Phân tích các dạng thức biến đổi từ loại (Word Forms):</div>\n    <ul class=\"exp-list\"><li><b>photograph</b></li><li><b>photography</b></li><li><b>photographer</b></li><li><b>photographic</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn cấu trúc dạng từ này?</div>\n    <p style=\"margin:4px 0;\">Chỗ trống đứng sau mạo từ 'a' và làm vị ngữ chỉ nghề nghiệp con người (dựa vào mệnh đề sau 'He took that picture' - anh ấy chụp bức ảnh). Do đó, ta cần một DANH TỪ CHỈ NGƯỜI làm nghề nhiếp ảnh, chính là từ 'photographer' (nhiếp ảnh gia).</p>\n    <div class=\"exp-section-title\">Tại sao các dạng từ còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">photograph (bức ảnh - danh từ chỉ vật), photography (ngành nhiếp ảnh/nghệ thuật nhiếp ảnh), photographic (tính từ thuộc về nhiếp ảnh).</p>\n    "}, {"id": "ex7_10", "exercise": "Exercise 7 (Chia Dạng Đúng Của Từ - Word Forms)", "question": "10. Excuse me. I'd like some ______ about the cruise. (inform)", "options": ["inform", "information", "informative", "informed"], "correct": "information", "explanation": "\n    <div class=\"exp-section-title\">Dịch nghĩa câu hỏi:</div>\n    <p style=\"margin:4px 0;\">\"Xin lỗi cho tôi hỏi một chút. Tôi muốn lấy một vài thông tin hướng dẫn về chuyến hành trình du thuyền này.\"</p>\n    <div class=\"exp-section-title\">Phân tích các dạng thức biến đổi từ loại (Word Forms):</div>\n    <ul class=\"exp-list\"><li><b>inform</b></li><li><b>information</b></li><li><b>informative</b></li><li><b>informed</b></li></ul>\n    <div class=\"exp-section-title\">Tại sao chọn cấu trúc dạng từ này?</div>\n    <p style=\"margin:4px 0;\">Vị trí đứng sau từ định lượng 'some' bổ nghĩa cho tân ngữ của cấu trúc mong muốn 'I'd like + danh từ'. Ta cần một DANH TỪ không đếm được mang ý nghĩa là tin tức, thông tin chỉ dẫn, đó chính là 'information'.</p>\n    <div class=\"exp-section-title\">Tại sao các dạng từ còn lại chưa đúng?</div>\n    <p style=\"margin:4px 0;\">inform (động từ thông báo), informative (tính từ chứa nhiều thông tin bổ ích), informed (tính từ am hiểu/được báo trước) đều không thỏa mãn cấu trúc ngữ pháp tân ngữ danh từ sau some.</p>\n    "}];
+
+        let userProgressAnswers = {};
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        let soundEngineCtx = null;
+
+        function triggerAudioContext() {
+            if (!soundEngineCtx) {
+                soundEngineCtx = new AudioCtx();
+            }
+        }
+
+        function playGamifiedAudioFeedback(isSuccess) {
+            triggerAudioContext();
+            if (!soundEngineCtx) return;
+            
+            const timeNow = soundEngineCtx.currentTime;
+            if (isSuccess) {
+                // Crystal clear double chime sound (Correct!)
+                const nodeOsc1 = soundEngineCtx.createOscillator();
+                const nodeOsc2 = soundEngineCtx.createOscillator();
+                const gainNode = soundEngineCtx.createGain();
+                
+                nodeOsc1.type = 'sine';
+                nodeOsc1.frequency.setValueAtTime(523.25, timeNow); // C5
+                nodeOsc1.frequency.exponentialRampToValueAtTime(1046.50, timeNow + 0.12);
+                
+                nodeOsc2.type = 'sine';
+                nodeOsc2.frequency.setValueAtTime(659.25, timeNow); // E5
+                nodeOsc2.frequency.exponentialRampToValueAtTime(1318.51, timeNow + 0.12);
+                
+                gainNode.gain.setValueAtTime(0.18, timeNow);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, timeNow + 0.35);
+                
+                nodeOsc1.connect(gainNode);
+                nodeOsc2.connect(gainNode);
+                gainNode.connect(soundEngineCtx.destination);
+                
+                nodeOsc1.start(timeNow);
+                nodeOsc2.start(timeNow);
+                nodeOsc1.stop(timeNow + 0.35);
+                nodeOsc2.stop(timeNow + 0.35);
+            } else {
+                // Descending failure buzz (Wrong / Oh No sound)
+                const singleOsc = soundEngineCtx.createOscillator();
+                const gainNode = soundEngineCtx.createGain();
+                
+                singleOsc.type = 'sawtooth';
+                singleOsc.frequency.setValueAtTime(170, timeNow);
+                singleOsc.frequency.linearRampToValueAtTime(105, timeNow + 0.22);
+                
+                gainNode.gain.setValueAtTime(0.12, timeNow);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, timeNow + 0.25);
+                
+                singleOsc.connect(gainNode);
+                gainNode.connect(soundEngineCtx.destination);
+                
+                singleOsc.start(timeNow);
+                singleOsc.stop(timeNow + 0.25);
+            }
+        }
+
+        // Canvas Confetti Architecture
+        const confettiCanvas = document.getElementById('confetti-layer');
+        const canvasRenderCtx = confettiCanvas.getContext('2d');
+        let confettiArray = [];
+        let rAFId = null;
+
+        function synchronizeCanvasBounds() {
+            confettiCanvas.width = window.innerWidth;
+            confettiCanvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', synchronizeCanvasBounds);
+        synchronizeCanvasBounds();
+
+        function launchConfettiShower() {
+            confettiArray = [];
+            const paletteVariants = ['#FFD32C', '#FF4757', '#74B9FF', '#10AC84', '#FF9FF3', '#A29BFE'];
+            for (let i = 0; i < 90; i++) {
+                confettiArray.push({
+                    x: Math.random() * confettiCanvas.width,
+                    y: Math.random() * confettiCanvas.height - confettiCanvas.height,
+                    radius: Math.random() * 5 + 4,
+                    density: Math.random() * confettiCanvas.height,
+                    colorCode: paletteVariants[Math.floor(Math.random() * paletteVariants.length)],
+                    tiltAmount: Math.random() * 12 - 6,
+                    tiltIncrement: Math.random() * 0.06 + 0.02,
+                    tiltAngle: 0
+                });
+            }
+            if (rAFId) cancelAnimationFrame(rAFId);
+            renderConfettiLoop();
+        }
+
+        function renderConfettiLoop() {
+            canvasRenderCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+            let hasVisibleParticles = false;
+            
+            for (let i = 0; i < confettiArray.length; i++) {
+                let p = confettiArray[i];
+                p.tiltAngle += p.tiltIncrement;
+                p.y += (Math.cos(p.density) + 3 + p.radius / 2) / 2.2;
+                p.x += Math.sin(p.tiltAngle);
+                p.tiltAmount = Math.sin(p.tiltAngle - i / 4) * 12;
+
+                if (p.y <= confettiCanvas.height) {
+                    hasVisibleParticles = true;
+                }
+
+                canvasRenderCtx.beginPath();
+                canvasRenderCtx.lineWidth = p.radius;
+                canvasRenderCtx.strokeStyle = p.colorCode;
+                canvasRenderCtx.moveTo(p.x + p.tiltAmount + p.radius / 2, p.y);
+                canvasRenderCtx.lineTo(p.x + p.tiltAmount, p.y + p.tiltAmount + p.radius / 2);
+                canvasRenderCtx.stroke();
+            }
+            
+            if (hasVisibleParticles) {
+                rAFId = requestAnimationFrame(renderConfettiLoop);
+            } else {
+                canvasRenderCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+            }
+        }
+
+        // Durstenfeld Shuffle Array Logic for Fair Gamification
+        function scrambleOptionsArray(inputArray) {
+            let workingArr = [...inputArray];
+            for (let i = workingArr.length - 1; i > 0; i--) {
+                const randIndex = Math.floor(Math.random() * (i + 1));
+                [workingArr[i], workingArr[randIndex]] = [workingArr[randIndex], workingArr[i]];
+            }
+            return workingArr;
+        }
+
+        // Generate and draw the UI layout on browser load
+        function buildInteractiveExamUI() {
+            const rootTarget = document.getElementById('dynamic-quiz-root');
+            rootTarget.innerHTML = "";
+
+            let activeExerciseSection = "";
+
+            questionDatabase.forEach((qItem, idx) => {
+                // Draw Section Titles dynamically to separate categories clearly
+                if (activeExerciseSection !== qItem.exercise) {
+                    activeExerciseSection = qItem.exercise;
+                    const sectionTitleBanner = document.createElement('div');
+                    sectionTitleBanner.className = "exercise-title-banner";
+                    sectionTitleBanner.innerText = activeExerciseSection;
+                    rootTarget.appendChild(sectionTitleBanner);
+                }
+
+                const cardBlock = document.createElement('div');
+                cardBlock.className = "quiz-card-item";
+                cardBlock.id = `card-id-${qItem.id}`;
+
+                // Question markup assembly
+                let questionHTML = `
+                    <div class="question-text-row">
+                        <span class="badge-q-number">Câu ${idx + 1}</span>
+                        <span>${qItem.question}</span>
+                    </div>
+                `;
+                cardBlock.innerHTML += questionHTML;
+
+                // Vertical stack container for option selections
+                const interactiveStack = document.createElement('div');
+                interactiveStack.className = "options-vertical-stack";
+
+                // Scramble choice items randomly per session load
+                const shuffledVariants = scrambleOptionsArray(qItem.options);
+                const standardLetters = ["A", "B", "C", "D"];
+
+                shuffledVariants.forEach((optText, oIdx) => {
+                    const buttonChoice = document.createElement('button');
+                    buttonChoice.className = "option-gamified-btn";
+                    
+                    // Retain lookups for validation tracking
+                    const originalIndex = qItem.options.indexOf(optText);
+                    const letterLabel = standardLetters[oIdx] || "•";
+
+                    buttonChoice.innerHTML = `<span class="alpha-prefix-box">${letterLabel}</span> <span>${optText}</span>`;
+                    
+                    buttonChoice.onclick = () => processUserSelection(qItem, optText, buttonChoice, cardBlock);
+                    interactiveStack.appendChild(buttonChoice);
+                });
+
+                cardBlock.appendChild(interactiveStack);
+
+                // Embedded hidden explanation answer key details drawer panel
+                const hiddenExpPanel = document.createElement('div');
+                hiddenExpPanel.className = "explanation-reveal-panel";
+                hiddenExpPanel.id = `exp-panel-${qItem.id}`;
+                hiddenExpPanel.innerHTML = qItem.explanation;
+                cardBlock.appendChild(hiddenExpPanel);
+
+                rootTarget.appendChild(cardBlock);
+            });
+        }
+
+        // Action processor for real-time immediate validation feedback loop
+        function processUserSelection(questionObj, chosenText, clickedButtonElement, parentCardElement) {
+            const listButtons = parentCardElement.querySelectorAll('.option-gamified-btn');
+            
+            // Prevent modifying state once question has been triggered answered once
+            let locksEngaged = false;
+            listButtons.forEach(btn => {
+                if (btn.classList.contains('correct-state') || btn.classList.contains('wrong-state')) {
+                    locksEngaged = true;
+                }
+            });
+            if (locksEngaged) return;
+
+            // Lock all internal items
+            listButtons.forEach(btn => btn.classList.add('disabled-state'));
+
+            const isCorrectAnswer = (chosenText === questionObj.correct);
+
+            if (isCorrectAnswer) {
+                clickedButtonElement.classList.add('correct-state');
+                playGamifiedAudioFeedback(true);
+                launchConfettiShower();
+                userProgressAnswers[questionObj.id] = true;
+            } else {
+                clickedButtonElement.classList.add('wrong-state');
+                parentCardElement.classList.add('card-shake-animation');
+                setTimeout(() => parentCardElement.classList.remove('card-shake-animation'), 450);
+                playGamifiedAudioFeedback(false);
+                userProgressAnswers[questionObj.id] = false;
+
+                // Visual assist: auto highlight correct option to enhance study assimilation
+                listButtons.forEach(btn => {
+                    if (btn.innerText.includes(questionObj.correct)) {
+                        btn.classList.add('correct-state');
+                    }
+                });
+            }
+
+            // Instantly draw open detailed explanations below question box block framework
+            document.getElementById(`exp-panel-${questionObj.id}`).style.display = "block";
+        }
+
+        // Grade full sheet submission scoring system
+        function evaluateAndSumUpScore() {
+            let positiveCount = 0;
+            const totalQuestionsCount = questionDatabase.length;
+
+            questionDatabase.forEach(q => {
+                if (userProgressAnswers[q.id] === true) {
+                    positiveCount++;
+                }
+            });
+
+            const aggregateRatioPercentage = (positiveCount / totalQuestionsCount) * 100;
+            let dynamicTeacherCommentary = "";
+
+            if (aggregateRatioPercentage < 50) {
+                dynamicTeacherCommentary = "Điểm lần này chưa cao lắm, con cố gắng đọc kỹ giải thích đáp án và làm lại nha. Cô tin con sẽ làm tốt hơn ở lần sau!";
+            } else if (aggregateRatioPercentage >= 50 && aggregateRatioPercentage <= 85) {
+                dynamicTeacherCommentary = "Con đã có tiến bộ khá ổn rồi, con cố gắng đọc kỹ giải thích đáp án và làm lại nha. Cô tin con sẽ làm tốt hơn ở lần sau!";
+            } else {
+                dynamicTeacherCommentary = "Làm tốt lắm, con cố gắng ring điểm 10 ở lần sau nha!";
+            }
+
+            document.getElementById('final-score-placeholder').innerText = `${positiveCount} / ${totalQuestionsCount}`;
+            document.getElementById('teacher-dynamic-comment').innerText = dynamicTeacherCommentary;
+            document.getElementById('score-summary-modal').classList.add('active-popup');
+
+            if (aggregateRatioPercentage >= 85) {
+                launchConfettiShower();
+            }
+        }
+
+        function hideSummaryModal() {
+            document.getElementById('score-summary-modal').classList.remove('active-popup');
+        }
+
+        // Fire rendering initialization pipelines immediately upon layout load
+        window.onload = () => {
+            buildInteractiveExamUI();
+        };
+    </script>
+</body>
+</html>
